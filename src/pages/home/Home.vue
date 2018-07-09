@@ -1,7 +1,9 @@
 <template>
   <div class="home-page-root">
     <basic-header></basic-header>
+    <logo-box></logo-box>
     <div style="height: 1000px; background: gray;">
+
       asdfa
     </div>
   </div>
@@ -9,9 +11,10 @@
 
 <script>
 import BasicHeader from '@/components/BasicHeader'
+import LogoBox from '@/components/LogoBox'
 
 export default {
-  components: { BasicHeader }
+  components: { BasicHeader, LogoBox }
 }
 </script>
 
