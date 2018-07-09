@@ -27,6 +27,8 @@ export default {
   align-items: center;
   justify-content: space-between;
   height: 80px;
+  width: 100%;
+  box-sizing: border-box;
   padding: 0 15px;
   .logo-box{
     flex: 1;

@@ -1,8 +1,15 @@
 <template>
   <div class="basic-header-root">
-    <div class="item-box">人</div>
-    <div class="title-text">400-0000-0000</div>
-    <div class="item-box">单</div>
+    <div class="item-box">
+      <span class="icon mdi-person"></span>
+    </div>
+    <div class="title-text">
+      <span class="mdi-phone"></span>
+      <span>400-0000-0000</span>
+    </div>
+    <div class="item-box">
+      <span class="icon mdi-menu"></span>
+    </div>
   </div>
 </template>
 
@@ -30,9 +37,13 @@ export default {
   }
   .item-box{
     width: 40px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    .icon{
+      font-size: 20px;
+    }
   }
 }
 </style>

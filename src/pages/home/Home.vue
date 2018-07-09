@@ -2,6 +2,8 @@
   <div class="home-page-root">
     <basic-header></basic-header>
     <logo-box></logo-box>
+    <banner-box></banner-box>
+    <grid-menu></grid-menu>
     <div style="height: 1000px; background: gray;">
 
       asdfa
@@ -12,9 +14,11 @@
 <script>
 import BasicHeader from '@/components/BasicHeader'
 import LogoBox from '@/components/LogoBox'
+import BannerBox from './components/BannerBox'
+import GridMenu from './components/GridMenu'
 
 export default {
-  components: { BasicHeader, LogoBox }
+  components: { BasicHeader, LogoBox, BannerBox, GridMenu }
 }
 </script>
 
