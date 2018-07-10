@@ -31,7 +31,7 @@ export default {
   background-color: #F1356F;
   color: white;
   .bottom-box {
-    width: 97%;
+    width: 95%;
     height: 100%;
     box-sizing: border-box;
     display: flex;

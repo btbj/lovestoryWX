@@ -29,7 +29,6 @@ export default {
   justify-content: space-around;
   padding: 20px 0;
   .qrcode-container {
-    width: 140px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -37,8 +36,8 @@ export default {
     align-items: center;
     padding-top: 5px;
     .qrcode-pic {
-      width: 130px;
-      height: 130px;
+      width: 110px;
+      height: 110px;
       box-sizing: border-box;
       margin-bottom: 8px;
       overflow: hidden;
@@ -47,7 +46,7 @@ export default {
       background-position: center;
     }
     .qrcode-label {
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 }

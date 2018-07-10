@@ -13,7 +13,7 @@
     <basic-bottom></basic-bottom>
     <!-- <div style="height: 1000px; background: gray;">
       asdfa
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -31,11 +31,7 @@ import BasicQrcode from '@/components/BasicQrcode'
 import BasicBottom from '@/components/BasicBottom'
 
 export default {
-<<<<<<< HEAD
-  components: { BasicHeader, HomeMemberCards, HomeActivity, HomeLoveStory, HomeService, HomeNewsInfo, BasicQrcode, BasicBottom }
-=======
-  components: { BasicHeader, LogoBox, BannerBox, GridMenu, HomeMemberCards, HomeActivity, HomeLoveStory, HomeService }
->>>>>>> 7fcd174401341cf1a7efd0d30c23fd93e7f676e3
+  components: { BasicHeader, LogoBox, BannerBox, GridMenu, HomeMemberCards, HomeActivity, HomeLoveStory, HomeService, HomeNewsInfo, BasicQrcode, BasicBottom }
 }
 </script>
 

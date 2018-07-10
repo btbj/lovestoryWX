@@ -41,7 +41,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  padding: 5px 10px;
   margin-bottom: 20px;
   .story-title {
     width: 100%;

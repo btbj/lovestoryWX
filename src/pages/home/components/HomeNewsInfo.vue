@@ -37,7 +37,7 @@ export default {
       newsList: [
         {
           title: '今年最流行婚礼，看完好想结婚',
-          content: '每个女生对婚礼的憧憬，大概都是从拥有第一个洋娃娃开始的，忽闪的长睫毛、精致的妆容、长长的蕾丝裙'
+          content: '每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，每个女生对婚礼的憧憬，大概都是从拥有第一个洋娃娃开始的，忽闪的长睫毛、精致的妆容、长长的蕾丝裙'
         }, {
           title: '今年最流行婚礼，看完好想结婚',
           content: '每个女生对婚礼的憧憬，大概都是从拥有第一个洋娃娃开始的，忽闪的长睫毛、精致的妆容、长长的蕾丝裙'
@@ -65,7 +65,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 5px;
+  padding: 5px 10px;
   margin-bottom: 30px;
   .news-info-header {
     width: 100%;
@@ -75,7 +75,7 @@ export default {
     .news-info-label {
       padding: 5px 0;
       border-bottom: 1px solid #FF70A2;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       box-sizing: border-box;
       margin-right: 80px;
@@ -99,7 +99,7 @@ export default {
         }
         .tab-item-text {
           padding: 0;
-          font-size: 16px;
+          font-size: 14px;
         }
         .tab-arrow {
           display: none;
@@ -141,8 +141,8 @@ export default {
         border-bottom: 1px solid lightgrey;
         padding: 5px 0;
         .info-pic {
-          width: 130px;
-          height: 100px;
+          width: 120px;
+          height: 90px;
           box-sizing: border-box;
           margin-right: 10px;
           overflow: hidden;
@@ -151,7 +151,7 @@ export default {
           background-position: center;
         }
         .info-words {
-          padding: 3px 0;
+          padding: 6px 0;
           box-sizing: border-box;
           flex: 1;
           height: 100px;
@@ -160,17 +160,17 @@ export default {
           align-items: flex-start;
           justify-content: space-around;
           .info-title {
-            font-size: 16px;
+            font-size: 14px;
             margin-bottom: 8px;
           }
           .info-content {
             flex: 1;
-            font-size: 14px;
+            font-size: 12px;
             text-align: left;
             color: grey;
             display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 5;
             overflow: hidden;
             text-overflow: ellipsis;
           }

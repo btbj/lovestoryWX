@@ -20,9 +20,9 @@ export default {
     return {
       menuList: [
         {name: '关于我们', color: '#ee96c4', icon: 'mdi-description', routeName: 'Aboutus'},
-        {name: '新闻资讯', color: '#e9be49', icon: 'mdi-language'},
-        {name: '服务介绍', color: '#f3aae5', icon: 'mdi-description'},
-        {name: '晒幸福', color: '#e09192', icon: 'mdi-language'},
+        {name: '新闻资讯', color: '#e9be49', icon: 'mdi-language', routeName: 'NewsInfo'},
+        {name: '服务介绍', color: '#f3aae5', icon: 'mdi-description', routeName: 'ServiceIntro'},
+        {name: '晒幸福', color: '#e09192', icon: 'mdi-language', routeName: 'LoveStory'},
         {name: '寻找对象', color: '#61bfeb', icon: 'mdi-description'},
         {name: '定制服务', color: '#eed67b', icon: 'mdi-language'},
         {name: '活动互动', color: '#eca368', icon: 'mdi-description'},
@@ -49,6 +49,7 @@ export default {
 <style lang="less" scoped>
 .grid-menu-root{
   width: 100%;
+  margin-bottom: 20px;
   .grid-menu-list{
     width: 100%;
     display: flex;

@@ -1,6 +1,6 @@
 <template>
   <div class="home-service-root">
-    <div class="service-bg-box" style="background-image: url('https://dummyimage.com/365x300/333/3ff.jpg&text=pic')"></div>
+    <div class="service-bg-box" style="background-image: url('https://dummyimage.com/365x250/333/3ff.jpg&text=pic')"></div>
   </div>
 </template>
 
@@ -14,11 +14,11 @@ export default {
 .home-service-root {
   width: 100%;
   box-sizing: border-box;
-  padding: 5px;
+  padding: 5px 10px;
   margin-bottom: 30px;
   .service-bg-box {
     width: 100%;
-    height: 300px;
+    height: 250px;
     box-sizing: border-box;
     background-size: cover;
     background-position: center;

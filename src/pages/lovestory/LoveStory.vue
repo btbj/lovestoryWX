@@ -1,8 +1,8 @@
 <template>
-  <div class="aboutus-page-root">
+  <div class="service-page-root">
     <basic-header></basic-header>
     <logo-box></logo-box>
-    <aboutus-content></aboutus-content>
+    <lovestory-content></lovestory-content>
     <basic-qrcode></basic-qrcode>
     <basic-bottom></basic-bottom>
   </div>
@@ -13,15 +13,15 @@ import BasicHeader from '@/components/BasicHeader'
 import LogoBox from '@/components/LogoBox'
 import BasicQrcode from '@/components/BasicQrcode'
 import BasicBottom from '@/components/BasicBottom'
-import AboutusContent from './components/AboutusContent'
+import LovestoryContent from './components/LovestoryContent'
 
 export default {
-  components: { BasicHeader, LogoBox, BasicQrcode, BasicBottom, AboutusContent }
+  components: { BasicHeader, LogoBox, BasicQrcode, BasicBottom, LovestoryContent }
 }
 </script>
 
 <style lang="less" scoped>
-.aboutus-page-root{
+.service-page-root{
   width: 100%;
   display: flex;
   flex-direction: column;

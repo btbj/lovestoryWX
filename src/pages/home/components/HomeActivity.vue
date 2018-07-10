@@ -42,7 +42,7 @@ export default {
 .home-activity-root {
   width: 100%;
   box-sizing: border-box;
-  padding: 5px;
+  padding: 5px 10px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;

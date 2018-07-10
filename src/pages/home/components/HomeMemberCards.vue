@@ -66,7 +66,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  padding: 5px 10px;
   margin-bottom: 20px;
   .member-cards-title {
     width: 100%;
@@ -97,9 +97,10 @@ export default {
       box-sizing: border-box;
       display: flex;
       align-items: center;
+      justify-content: center;
       .pic-box {
-        width: 45%;
-        height: 140px;
+        width: 40%;
+        height: 120px;
         border: 1px solid black;
         box-sizing: border-box;
         margin-right: 3px;
@@ -115,12 +116,12 @@ export default {
         justify-content: center;
         padding: 0 3px;
         .profile-name {
-          font-size: 16px;
+          font-size: 14px;
           color: #F07BA8;
           margin-bottom: 8px;
         }
         .profile-item {
-          font-size: 14px;
+          font-size: 12px;
           margin-bottom: 3px;
         }
         .profile-btn {
@@ -132,6 +133,7 @@ export default {
           text-align: center;
           line-height: 25px;
           border-radius: 3px;
+          font-size: 14px;
         }
       }
     }
