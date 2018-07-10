@@ -15,7 +15,7 @@ export default {
   width: 100%;
   box-sizing: border-box;
   padding: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   .service-bg-box {
     width: 100%;
     height: 300px;
