@@ -1,6 +1,9 @@
 <template>
   <div class="home-page-root">
     <basic-header></basic-header>
+    <logo-box></logo-box>
+    <banner-box></banner-box>
+    <grid-menu></grid-menu>
     <home-member-cards></home-member-cards>
     <home-activity></home-activity>
     <home-love-story></home-love-story>
@@ -10,12 +13,15 @@
     <basic-bottom></basic-bottom>
     <!-- <div style="height: 1000px; background: gray;">
       asdfa
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
 import BasicHeader from '@/components/BasicHeader'
+import LogoBox from '@/components/LogoBox'
+import BannerBox from './components/BannerBox'
+import GridMenu from './components/GridMenu'
 import HomeMemberCards from './components/HomeMemberCards'
 import HomeActivity from './components/HomeActivity'
 import HomeLoveStory from './components/HomeLoveStory'
@@ -25,7 +31,11 @@ import BasicQrcode from '@/components/BasicQrcode'
 import BasicBottom from '@/components/BasicBottom'
 
 export default {
+<<<<<<< HEAD
   components: { BasicHeader, HomeMemberCards, HomeActivity, HomeLoveStory, HomeService, HomeNewsInfo, BasicQrcode, BasicBottom }
+=======
+  components: { BasicHeader, LogoBox, BannerBox, GridMenu, HomeMemberCards, HomeActivity, HomeLoveStory, HomeService }
+>>>>>>> 7fcd174401341cf1a7efd0d30c23fd93e7f676e3
 }
 </script>
 
