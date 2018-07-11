@@ -2,9 +2,9 @@
   <div class="about-us-page-root">
     <page-header>
       <span slot="title">关于我们</span>
-      <span slot="nav-item" @click="aaa('companyintro')">公司介绍</span>
-      <span slot="nav-item" @click="aaa('officeenviro')">办公环境</span>
-      <span slot="nav-item" @click="aaa('contactus')">联系我们</span>
+      <span slot="nav-item" @click="changeType('companyintro')">公司介绍</span>
+      <span slot="nav-item" @click="changeType('officeenviro')">办公环境</span>
+      <span slot="nav-item" @click="changeType('contactus')">联系我们</span>
     </page-header>
     <div class="about-us-title">{{titleText}}</div>
     <div class="about-us-content-box" v-html="contentInfo">
@@ -26,7 +26,7 @@ export default {
     }
   },
   methods: {
-    aaa (type) {
+    changeType (type) {
       console.log(type)
       let typeIndex = {
         'companyintro': 1,
