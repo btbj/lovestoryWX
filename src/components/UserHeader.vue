@@ -1,11 +1,10 @@
 <template>
-  <div class="basic-header-root">
-    <div class="item-box">
-      <span class="icon mdi-person" @click="navTo('UserCenter')"></span>
+  <div class="user-header-root">
+    <div class="item-box" @click="goBack">
+      <span class="mdi-keyboard_arrow_left icon"></span>
     </div>
     <div class="title-text">
-      <span class="mdi-phone"></span>
-      <span>400-0000-0000</span>
+      <slot name="title"></slot>
     </div>
     <menu-btn class="item-box"></menu-btn>
   </div>
@@ -16,15 +15,15 @@ import MenuBtn from './MenuBtn'
 export default {
   components: { MenuBtn },
   methods: {
-    navTo (destName) {
-      this.$router.push({name: destName})
+    goBack () {
+      this.$router.go(-1)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.basic-header-root{
+.user-header-root{
   z-index: 2000;
   width: 100%;
   height: 40px;
@@ -36,8 +35,6 @@ export default {
   justify-content: center;
   background-color: #F1356F;
   color: white;
-  user-select: none;
-  -webkit-user-select: none;
   .title-text{
     flex: 1;
     text-align: center;
