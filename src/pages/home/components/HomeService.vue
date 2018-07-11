@@ -1,12 +1,18 @@
 <template>
   <div class="home-service-root">
-    <div class="service-bg-box" style="background-image: url('https://dummyimage.com/365x250/333/3ff.jpg&text=pic')"></div>
+    <div class="service-bg-box" :style="`background-image: url('${processImg}')`"></div>
   </div>
 </template>
 
 <script>
-export default {
+import imageService from '@/services/imageService'
 
+export default {
+  computed: {
+    processImg () {
+      return imageService.wxprocess
+    }
+  }
 }
 </script>
 
@@ -14,7 +20,7 @@ export default {
 .home-service-root {
   width: 100%;
   box-sizing: border-box;
-  padding: 5px 10px;
+  padding: 5px 0;
   margin-bottom: 30px;
   .service-bg-box {
     width: 100%;

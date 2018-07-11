@@ -4,11 +4,20 @@ import { Toast } from 'mint-ui'
 export default {
   serviceURL: 'article/',
 
-  articles (page) {
-    return Api.post((this.serviceURL + 'wechat_articles'), page)
+  info (credentials) {
+    return Api.post((this.serviceURL + 'info'), credentials)
   },
-  info (id) {
-    return Api.post((this.serviceURL + 'wechat_info'), id)
+  delete (credentials) {
+    return Api.post((this.serviceURL + 'do_delete'), credentials)
+  },
+  create (newInfo) {
+    return Api.post((this.serviceURL + 'do_create'), newInfo)
+  },
+  update (newInfo) {
+    return Api.post((this.serviceURL + 'do_update'), newInfo)
+  },
+  articles (category) {
+    return Api.post((this.serviceURL + 'articles'), category)
   },
 
   // 错误处理 //

@@ -1,17 +1,17 @@
 <template>
-  <div class="home-activity-root">
-    <div class="activity-bg-box" style="background-image: url('https://dummyimage.com/365x245/333/3ff.jpg&text=pic')"></div>
+  <div class="home-activity-root" v-show="show">
+    <div class="activity-bg-box" :style="`background-image: url('${activityInfo.image_url}')`"></div>
     <div class="activity-label-box">Activity</div>
     <div class="activity-intro-box">
-      <div class="intro-info-box">
-        <div class="title-info">户外踏青交友联谊</div>
-        <div class="item-info">
+      <div class="intro-info-box" style="margin-bottom: 20px">
+        <div class="title-info">{{activityInfo.title}}</div>
+        <div class="item-info" v-show="activityInfo.time">
           活动时间：{{activityInfo.time}}
         </div>
-        <div class="item-info">
+        <div class="item-info" v-show="activityInfo.address">
           活动地点：{{activityInfo.address}}
         </div>
-        <div class="item-info" style="margin-bottom: 20px">
+        <div class="item-info" v-show="activityInfo.introduction">
           <div class="activity-intro">活动介绍: {{activityInfo.introduction}}</div>
         </div>
       </div>
@@ -23,9 +23,13 @@
 </template>
 
 <script>
+import imageService from '@/services/imageService'
+import activityService from '@/services/activityService'
+
 export default {
   data () {
     return {
+      show: false,
       activityInfo: {
         id: null,
         title: '户外踏青交友联谊',
@@ -34,6 +38,31 @@ export default {
         introduction: '世纪佳缘遇见爱，线下活动等你来。这一天又有会员成功牵手了，幸福就是一部的距离，勇敢伸出你的手，或许她(他)会给你一只手！'
       }
     }
+  },
+  methods: {
+    async getList (page = 1) {
+      try {
+        let res = await activityService.activities({
+          page,
+          per_page: 1
+        })
+        console.log('success', res)
+        if (res.data.activities.length) {
+          this.activityInfo = res.data.activities[0]
+        }
+        this.show = true
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  computed: {
+    activityImg () {
+      return imageService.activity
+    }
+  },
+  mounted: async function () {
+    await this.getList()
   }
 }
 </script>

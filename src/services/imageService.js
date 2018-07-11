@@ -5,5 +5,6 @@ export default {
   banner: baseURL + 'banner.png',
   loginbg: baseURL + 'loginbg.png',
   process: baseURL + 'process.png',
+  wxprocess: baseURL + 'wxprocess.png',
   activity: baseURL + 'activity.png'
 }
