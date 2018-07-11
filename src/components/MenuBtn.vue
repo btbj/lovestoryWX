@@ -28,9 +28,9 @@ export default {
         {name: '新闻资讯', routeName: 'NewsInfo'},
         {name: '服务介绍', routeName: 'ServiceIntro'},
         {name: '晒幸福', routeName: 'LoveStory'},
-        {name: '寻找对象'},
-        {name: '定制服务'},
-        {name: '活动互动'},
+        {name: '寻找对象', routeName: 'FindPartner'},
+        {name: '定制服务', routeName: 'CustomService'},
+        {name: '活动互动', routeName: 'Activities'},
         {name: '我要相亲', routeName: 'Register'}
       ]
     }
