@@ -56,10 +56,11 @@ export default {
     .title{
       font-size: 20px;
       font-weight: bold;
+      margin-bottom: 5px;
     }
     .date{
       font-size: 14px;
-      margin: 5px 0;
+      margin-bottom: 5px;
     }
   }
 }
