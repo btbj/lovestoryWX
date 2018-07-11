@@ -22,7 +22,7 @@ export default {
           head_image_url: 'https://dummyimage.com/82x140/333/3ff.jpg&text=pic',
           nickname: '雅萱',
           age: '12',
-          province: '杭州湾'
+          province: '杭州湾新区'
         },
         {
           head_image_url: 'https://dummyimage.com/82x140/333/3ff.jpg&text=pic',
