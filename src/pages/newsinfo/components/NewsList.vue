@@ -1,7 +1,7 @@
 <template>
   <div class="news-list-root">
     <div class="news-item" v-for="(news, index) in list" :key="index">
-      <div class="news-box">
+      <div class="news-box" @click="checkArticle(news)">
         <div class="news-img" :style="`background-image: url('${news.image_url}')`"></div>
         <div class="news-info">
           <div class="title">{{news.title}}</div>
@@ -14,7 +14,12 @@
 
 <script>
 export default {
-  props: ['list']
+  props: ['list'],
+  methods: {
+    checkArticle (news) {
+      this.$router.push({name: 'ArticleDetail', params: {'ArticleId': news.id}})
+    }
+  }
 
 }
 </script>

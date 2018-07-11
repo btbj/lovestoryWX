@@ -25,6 +25,7 @@ import MyPics from '@/pages/usercenter/completematerial/mypics/MyPics'
 import MyAccount from '@/pages/usercenter/myaccount/MyAccount'
 import EditPassword from '@/pages/usercenter/myaccount/modules/EditPassword'
 import Register from '@/pages/register/Register'
+import ArticleDetail from '@/pages/articledetail/ArticleDetail'
 
 Vue.use(Router)
 
@@ -152,6 +153,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/article/:ArticleId',
+      name: 'ArticleDetail',
+      component: ArticleDetail
     }
   ]
 })
