@@ -1,19 +1,39 @@
 <template>
   <div class="basic-qrcode-root">
-    <div class="qrcode-container">
-      <div class="qrcode-pic" style="background-image: url('https://dummyimage.com/130x130/333/3ff.jpg&text=pic')"> </div>
-      <div class="qrcode-label">微信公众号</div>
-    </div>
-    <div class="qrcode-container">
-      <div class="qrcode-pic" style="background-image: url('https://dummyimage.com/130x130/333/3ff.jpg&text=pic')"> </div>
-      <div class="qrcode-label">官方微博</div>
+    <div class="qrcode-container" v-for="(item, index) in qrCodeList" :key="index">
+      <div class="qrcode-pic" :style="`background-image: url('${item.value}')`"> </div>
+      <div class="qrcode-label">{{item.label}}</div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import siteService from '@/services/siteService'
 
+export default {
+  data () {
+    return {
+      qrCodeList: []
+    }
+  },
+  methods: {
+    async getQRCode () {
+      try {
+        let res = await siteService.info({id: [16, 17]})
+        let array = res.data.info.map(item => {
+          let {name, url: value, label} = item
+          return {name, value, label}
+        })
+        // console.log(array)
+        this.qrCodeList = array
+      } catch (error) {
+        siteService.handleErr(error)
+      }
+    }
+  },
+  mounted: async function () {
+    await this.getQRCode()
+  }
 }
 </script>
 

@@ -4,21 +4,39 @@
       <span class="icon mdi-person" @click="navTo('UserCenter')"></span>
     </div>
     <div class="title-text">
-      <span class="mdi-phone"></span>
-      <span>400-0000-0000</span>
+      <span class="mdi-phone" style="margin-right: 2px;"></span>
+      <span>{{hotLine}}</span>
     </div>
     <menu-btn class="item-box"></menu-btn>
   </div>
 </template>
 
 <script>
+import siteService from '@/services/siteService'
 import MenuBtn from './MenuBtn'
+
 export default {
   components: { MenuBtn },
+  data () {
+    return {
+      hotLine: ''
+    }
+  },
   methods: {
     navTo (destName) {
       this.$router.push({name: destName})
+    },
+    async getSiteInfo (id) {
+      try {
+        let res = await siteService.info({id})
+        this.hotLine = res.data.info.value
+      } catch (error) {
+        siteService.handleErr(error)
+      }
     }
+  },
+  mounted: async function () {
+    this.getSiteInfo(12)
   }
 }
 </script>
@@ -42,7 +60,7 @@ export default {
     flex: 1;
     text-align: center;
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: center;
   }
   .item-box{

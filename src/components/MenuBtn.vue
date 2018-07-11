@@ -75,6 +75,7 @@ export default {
   .menu-list{
     box-sizing: border-box;
     padding: 20px 15px;
+    box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
     .menu-item{
       margin-bottom: 15px;
       list-style: none;

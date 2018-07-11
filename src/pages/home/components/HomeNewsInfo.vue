@@ -15,9 +15,8 @@
     </div>
      <div class="news-info-box">
       <div class="news-info-content">
-        <div class="info-item" v-for="(news, index) in newsList"
-             :key="index">
-          <div class="info-pic" style="background-image: url('https://dummyimage.com/130x100/333/3ff.jpg&text=pic')">
+        <div class="info-item" v-for="(news, index) in newsList" :key="index">
+          <div class="info-pic" :style="`background-image: url('${news.image_url}')`">
           </div>
           <div class="info-words">
             <div class="info-title">{{news.title}}</div>
@@ -30,6 +29,8 @@
 </template>
 
 <script>
+import articleService from '@/services/articleService'
+
 export default {
   data () {
     return {
@@ -49,9 +50,26 @@ export default {
     }
   },
   methods: {
-    getNews (type) {
+    checkNewsDetail (id) {
+      this.$router.push({name: 'news-detail', params: {'category': this.type, id}})
+    },
+    async getNews (type = 'company') {
       this.type = type
+      try {
+        let res = await articleService.articles({
+          category: type === 'company' ? 2 : 3,
+          page: 1,
+          per_page: 3
+        })
+        console.log('success', res)
+        this.newsList = res.data.articles
+      } catch (error) {
+        console.log(error)
+      }
     }
+  },
+  mounted: async function () {
+    this.getNews()
   }
 
 }
@@ -72,6 +90,8 @@ export default {
     display: flex;
     align-items: flex-end;
     box-sizing: border-box;
+    margin-bottom: -1px;
+    z-index: 1;
     .news-info-label {
       padding: 5px 0;
       border-bottom: 1px solid #FF70A2;

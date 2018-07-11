@@ -4,20 +4,16 @@
       <div class="big-words-title">就在你身边，他们相爱了</div>
       <div class="small-words-title">立即加入会员，缘分就在眼前</div>
     </div>
-    <div class="first-row">
-      <div class="first-row-pic" style="background-image: url('https://dummyimage.com/365x200/333/3ff.jpg&text=pic')">
+    <div class="first-row" v-if="storyList.length >= 1">
+      <div class="first-row-pic" :style="`background-image: url('${firstRow.image_url}')`">
         <div class="first-pic-logo">
           <div class="first-logo-words index-story-title">晒幸福</div>
         </div>
       </div>
     </div>
-    <div class="second-row">
-      <div class="second-row-pic" style="background-image: url('https://dummyimage.com/178x120/333/3ff.jpg&text=pic')">
-        <div class="second-pic-logo">
-          <div class="second-logo-words index-story-title">晒幸福</div>
-        </div>
-      </div>
-      <div class="second-row-pic" style="background-image: url('https://dummyimage.com/178x140/333/3ff.jpg&text=pic')">
+    <div class="second-row" v-if="storyList.length >= 3">
+      <div class="second-row-pic" v-for="(item, index) in secondRow" :key="index"
+        :style="`background-image: url('${item.image_url}')`">
         <div class="second-pic-logo">
           <div class="second-logo-words index-story-title">晒幸福</div>
         </div>
@@ -30,13 +26,51 @@
 </template>
 
 <script>
+import articleService from '@/services/articleService'
+
 export default {
+  data () {
+    return {
+      storyList: [ ]
+    }
+  },
   methods: {
     navTo (destRouteName) {
       this.$router.push({name: destRouteName})
+    },
+    checkDetail (story) {
+      // this.$router.push({name: 'newsinfo', params: {'id': index}})
+      this.$router.push({name: 'lovestory-detail', params: {'id': story.id}})
+    },
+    async getList (page = 1) {
+      try {
+        let res = await articleService.articles({
+          category: 6,
+          page,
+          per_page: 3
+        })
+        console.log('success', res)
+        this.storyList = res.data.articles
+      } catch (error) {
+        console.log(error)
+      }
     }
+  },
+  computed: {
+    firstRow () {
+      return this.storyList[0]
+    },
+    secondRow () {
+      let array = []
+      if (this.storyList.length >= 3) {
+        array = this.storyList.filter((item, index) => { return index >= 1 })
+      }
+      return array
+    }
+  },
+  mounted: async function () {
+    this.getList()
   }
-
 }
 </script>
 

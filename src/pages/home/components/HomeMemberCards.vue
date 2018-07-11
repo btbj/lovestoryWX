@@ -1,5 +1,5 @@
 <template>
-  <div class="home-member-cards-root">
+  <div class="home-member-cards-root" v-show="show">
     <div class="member-cards-title">
       <div class="big-words-title">如果有爱，为什么错过</div>
       <div class="small-words-title">立即加入会员，缘分就在眼前</div>
@@ -7,9 +7,9 @@
     <div class="member-cards-container">
       <div class="member-cards-box" v-for="(member, index) in memberCardsList"
            :key="index">
-        <div class="pic-box" style="background-image: url('https://dummyimage.com/82x140/333/3ff.jpg&text=pic')"></div>
+        <div class="pic-box" :style="`background-image: url('${member.head_image_url}')`"></div>
         <div class="profile-box">
-          <div class="profile-name">{{member.name}}</div>
+          <div class="profile-name">{{member.nickname}}</div>
           <div class="profile-item">年龄：{{member.age}}</div>
           <div class="profile-item">身高：{{member.height}}</div>
           <div class="profile-item">学历：{{member.education}}</div>
@@ -24,39 +24,62 @@
 </template>
 
 <script>
+import userService from '@/services/userService'
+
 export default {
   data () {
     return {
+      show: false,
       memberCardsList: [
         {
           img: 'https://dummyimage.com/82x140/333/3ff.jpg&text=pic',
-          name: '雅萱',
+          nickname: '雅萱',
           age: '34岁',
           height: '176',
           education: '高中及大专以下'
         }, {
           img: 'https://dummyimage.com/82x140/333/3ff.jpg&text=pic',
-          name: '雅萱',
+          nickname: '雅萱',
           age: '34岁',
           height: '176',
           education: '海龟硕士'
         }, {
           img: 'https://dummyimage.com/82x140/333/3ff.jpg&text=pic',
-          name: '雅萱',
+          nickname: '雅萱',
           age: '34岁',
           height: '176',
           education: '海龟硕士'
         }, {
           img: 'https://dummyimage.com/82x140/333/3ff.jpg&text=pic',
-          name: '雅萱',
+          nickname: '雅萱',
           age: '34岁',
           height: '176',
           education: '海龟硕士'
         }
       ]
     }
+  },
+  methods: {
+    checkUserDetail (user) {
+      this.$router.push({name: 'userinfo', params: {'id': user.id}})
+    },
+    async getList (page = 1) {
+      try {
+        let res = await userService.recommends({
+          token: this.$store.getters.token,
+          num: 4
+        })
+        console.log('success', res)
+        this.memberCardsList = res.data.users
+        this.show = true
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  mounted: async function () {
+    this.getList()
   }
-
 }
 </script>
 
