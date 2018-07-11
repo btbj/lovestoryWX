@@ -23,9 +23,9 @@ export default {
         {name: '新闻资讯', color: '#e9be49', icon: 'mdi-language', routeName: 'NewsInfo'},
         {name: '服务介绍', color: '#f3aae5', icon: 'mdi-description', routeName: 'ServiceIntro'},
         {name: '晒幸福', color: '#e09192', icon: 'mdi-language', routeName: 'LoveStory'},
-        {name: '寻找对象', color: '#61bfeb', icon: 'mdi-description'},
-        {name: '定制服务', color: '#eed67b', icon: 'mdi-language'},
-        {name: '活动互动', color: '#eca368', icon: 'mdi-description'},
+        {name: '寻找对象', color: '#61bfeb', icon: 'mdi-description', routeName: 'FindPartner'},
+        {name: '定制服务', color: '#eed67b', icon: 'mdi-language', routeName: 'CustomService'},
+        {name: '活动互动', color: '#eca368', icon: 'mdi-description', routeName: 'Activities'},
         {name: '我要相亲', color: '#66d6b2', icon: 'mdi-language'}
       ]
     }

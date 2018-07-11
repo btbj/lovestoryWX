@@ -24,13 +24,18 @@
       </div>
     </div>
     <div class="story-more-box">
-      <div class="more-btn">查看更多 >></div>
+      <div class="more-btn" @click="navTo('LoveStory')">查看更多 >></div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  methods: {
+    navTo (destRouteName) {
+      this.$router.push({name: destRouteName})
+    }
+  }
 
 }
 </script>
@@ -129,12 +134,13 @@ export default {
   .story-more-box {
     width: 100%;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .more-btn {
+      width: 100px;
       font-size: 16px;
       color: #F07BA8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
   }
 }

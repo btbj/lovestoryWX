@@ -96,12 +96,13 @@ export default {
   .activity-more-box {
     width: 100%;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .more-btn {
       font-size: 16px;
       color: #F07BA8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100px;
     }
   }
 }
