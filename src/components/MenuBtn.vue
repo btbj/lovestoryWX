@@ -31,7 +31,7 @@ export default {
         {name: '寻找对象'},
         {name: '定制服务'},
         {name: '活动互动'},
-        {name: '我要相亲'}
+        {name: '我要相亲', routeName: 'Register'}
       ]
     }
   },

@@ -5,6 +5,7 @@ import Aboutus from '@/pages/aboutus/Aboutus'
 import NewsInfo from '@/pages/newsinfo/NewsInfo'
 import ServiceIntro from '@/pages/serviceintro/ServiceIntro'
 import LoveStory from '@/pages/lovestory/LoveStory'
+import Register from '@/pages/register/Register'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/lovestory',
       name: 'LoveStory',
       component: LoveStory
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })
