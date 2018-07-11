@@ -1,13 +1,13 @@
 <template>
   <div class="news-info-page-root">
     <page-header>
-      <span slot="title">新闻资讯</span>
+      <span slot="title">{{titleText}}</span>
       <span slot="nav-item" @click="changeType('notification')">通知公告</span>
       <span slot="nav-item" @click="changeType('companynews')">公司新闻</span>
       <span slot="nav-item" @click="changeType('industrynews')">行业资讯</span>
     </page-header>
     <div class="news-info-content-box">
-      {{newsList}}
+      <news-list :list="newsList"></news-list>
       <page-pagination :paginationData="paginationData" @change="getList"></page-pagination>
     </div>
   </div>
@@ -16,10 +16,11 @@
 <script>
 import PageHeader from '@/components/PageHeader'
 import PagePagination from '@/components/PagePagination'
+import NewsList from './NewsList'
 import articleService from '@/services/articleService'
 
 export default {
-  components: { PageHeader, PagePagination },
+  components: { PageHeader, PagePagination, NewsList },
   data () {
     return {
       type: 'notification',
@@ -40,6 +41,7 @@ export default {
     changeType (type) {
       console.log(type)
       this.type = type
+      this.getList(1)
     },
     async getList (page = 1) {
       try {
@@ -57,6 +59,16 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    }
+  },
+  computed: {
+    titleText () {
+      let typeTitle = {
+        'notification': '通知公告',
+        'companynews': '公司新闻',
+        'industrynews': '行业资讯'
+      }
+      return typeTitle[this.type]
     }
   },
   mounted: async function () {
