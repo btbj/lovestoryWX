@@ -25,9 +25,9 @@ export default {
       menuList: [
         {name: '首页', routeName: 'Home'},
         {name: '关于我们', routeName: 'Aboutus'},
-        {name: '新闻资讯'},
-        {name: '服务介绍'},
-        {name: '晒幸福'},
+        {name: '新闻资讯', routeName: 'NewsInfo'},
+        {name: '服务介绍', routeName: 'ServiceIntro'},
+        {name: '晒幸福', routeName: 'LoveStory'},
         {name: '寻找对象'},
         {name: '定制服务'},
         {name: '活动互动'},
