@@ -26,7 +26,7 @@ export default {
         {name: '寻找对象', color: '#61bfeb', icon: 'mdi-description', routeName: 'FindPartner'},
         {name: '定制服务', color: '#eed67b', icon: 'mdi-language', routeName: 'CustomService'},
         {name: '活动互动', color: '#eca368', icon: 'mdi-description', routeName: 'Activities'},
-        {name: '我要相亲', color: '#66d6b2', icon: 'mdi-language'}
+        {name: '我要相亲', color: '#66d6b2', icon: 'mdi-language', routeName: 'Register'}
       ]
     }
   },

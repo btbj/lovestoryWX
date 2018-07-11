@@ -36,6 +36,8 @@ export default {
   justify-content: center;
   background-color: #F1356F;
   color: white;
+  user-select: none;
+  -webkit-user-select: none;
   .title-text{
     flex: 1;
     text-align: center;

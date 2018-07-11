@@ -24,6 +24,7 @@ import MyPics from '@/pages/usercenter/completematerial/mypics/MyPics'
 
 import MyAccount from '@/pages/usercenter/myaccount/MyAccount'
 import EditPassword from '@/pages/usercenter/myaccount/modules/EditPassword'
+import Register from '@/pages/register/Register'
 
 Vue.use(Router)
 
@@ -146,6 +147,11 @@ export default new Router({
       path: '/usercenter/completematerial/mypics',
       name: 'MyPics',
       component: MyPics
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })

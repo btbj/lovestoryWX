@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const Host = 'http://php.gooduo.net/qisheng/index.php/'
+const Host = 'http://php.gooduo.net/lovestory233/index.php/'
 const Http = axios.create({
   baseUrl: Host
 })

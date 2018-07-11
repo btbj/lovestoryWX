@@ -1,19 +1,21 @@
 <template>
   <div class="page-header-root">
     <div class="header-box">
-      <div class="back-btn" @click="goBack">
-        <span class="mdi-keyboard_arrow_left icon"></span>
-        <span class="back-words">返回</span>
+      <div class="btn-wrapper">
+        <div class="back-btn" @click="goBack" v-if="!noBack">
+          <span class="mdi-keyboard_arrow_left icon"></span>
+          <span class="back-words">返回</span>
+        </div>
       </div>
       <div class="header-title">
         <slot name="title"></slot>
       </div>
       <div class="more-btn">
-        <div class="mdi-keyboard_arrow_up icon" @click="isMore = !isMore" v-if="isMore"></div>
-        <div class="mdi-keyboard_arrow_down icon" @click="isMore = !isMore" v-else></div>
+        <div class="mdi-keyboard_arrow_up icon" @click="isMore = !isMore" v-if="!noMenu && isMore"></div>
+        <div class="mdi-keyboard_arrow_down icon" @click="isMore = !isMore" v-if="!noMenu && !isMore"></div>
       </div>
     </div>
-    <div class="more-nav-box" v-if="isMore">
+    <div class="more-nav-box" v-if="!noMenu && isMore">
       <slot name="nav-item"></slot>
     </div>
   </div>
@@ -21,6 +23,14 @@
 
 <script>
 export default {
+  props: {
+    noMenu: {
+      type: Boolean
+    },
+    noBack: {
+      type: Boolean
+    }
+  },
   data () {
     return {
       isMore: false
@@ -40,6 +50,8 @@ export default {
   width: 100%;
   box-sizing: border-box;
   position: relative;
+  user-select: none;
+  -webkit-user-select: none;
   .header-box {
     width: 100%;
     height: 40px;
@@ -47,20 +59,25 @@ export default {
     display: flex;
     align-items: center;
     background-color: #F1356F;
-    .back-btn {
+    .btn-wrapper {
       flex: 0.3;
       height: 100%;
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      .back-words {
-        font-size: 16px;
-        color: white;
+      .back-btn{
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        .back-words {
+          font-size: 16px;
+          color: white;
+        }
+      }
+      .back-btn:active {
+        background-color: #c20450;;
       }
     }
-    .back-btn:active {
-      background-color: #c20450;;
-    }
+
     .header-title {
       flex: 1;
       box-sizing: border-box;
