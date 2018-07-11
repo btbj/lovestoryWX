@@ -15,7 +15,7 @@
         <div class="mdi-keyboard_arrow_down icon" @click="isMore = !isMore" v-if="!noMenu && !isMore"></div>
       </div>
     </div>
-    <div class="more-nav-box" v-if="!noMenu && isMore">
+    <div class="more-nav-box" v-if="!noMenu && isMore" @click="isMore = !isMore">
       <slot name="nav-item"></slot>
     </div>
   </div>
