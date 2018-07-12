@@ -349,10 +349,14 @@ export default {
           data: [...Object.keys(this.detailInfo), ...Object.keys(this.detailArray)]
         })
         Object.keys(this.detailInfo).forEach(key => {
-          this.detailInfo[key] = res.data.details[key][0]
+          if (res.data.details[key]) {
+            this.detailInfo[key] = res.data.details[key][0]
+          }
         })
         Object.keys(this.detailArray).forEach(key => {
-          this.detailArray[key] = res.data.details[key]
+          if (res.data.details[key]) {
+            this.detailArray[key] = res.data.details[key]
+          }
         })
       } catch (error) {
         userService.handleErr(error)

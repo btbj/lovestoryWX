@@ -50,7 +50,7 @@ export default {
           page,
           per_page: this.paginationData.size
         })
-        console.log('success', res)
+        // console.log('success', res)
         this.newsList = res.data.articles
         let {count: total, page: current, per_page: size} = res.data
         this.paginationData = {

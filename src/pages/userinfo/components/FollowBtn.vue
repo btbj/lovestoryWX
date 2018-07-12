@@ -7,6 +7,7 @@
 
 <script>
 import userService from '@/services/userService'
+import { Toast } from 'mint-ui'
 
 export default {
   data () {
@@ -33,10 +34,7 @@ export default {
           token: this.$store.getters.token,
           user_id: this.$route.params.UserId
         })
-        this.$message({
-          message: res.message,
-          type: 'success'
-        })
+        Toast(res.message)
         this.getAttentionStatus()
         // console.log('follow status', res)
         // this.isFollowed = res.status
@@ -50,10 +48,7 @@ export default {
           token: this.$store.getters.token,
           user_id: this.$route.params.UserId
         })
-        this.$message({
-          message: res.message,
-          type: 'success'
-        })
+        Toast(res.message)
         this.getAttentionStatus()
         // console.log('follow status', res)
         // this.isFollowed = res.status

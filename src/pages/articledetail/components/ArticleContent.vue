@@ -28,7 +28,7 @@ export default {
         let res = await articleService.info({
           id: this.$route.params.ArticleId
         })
-        console.log('success', res.data.info.created_date)
+        // console.log('success', res.data.info.created_date)
         this.newsDetail = res.data.info
       } catch (error) {
         console.log(error)
