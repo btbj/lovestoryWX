@@ -1,31 +1,54 @@
 <template>
   <div class="love-story-page-root">
-    <!-- <page-header>
-      <span slot="title">新闻资讯</span>
-      <span slot="first-item" @click="aaa('notification')">通知公告</span>
-      <span slot="second-item" @click="aaa('companynews')">公司新闻</span>
-      <span slot="third-item" @click="aaa('industrynews')">行业资讯</span>
-    </page-header> -->
+    <page-header noMenu>
+      <span slot="title">晒幸福</span>
+    </page-header>
     <div class="love-story-content-box">
-      {{content}}
+      <lovestory-list :list="storyList"></lovestory-list>
+      <page-pagination :paginationData="paginationData" @change="getList"></page-pagination>
     </div>
   </div>
 </template>
 
 <script>
+import articleService from '@/services/articleService'
 import PageHeader from '@/components/PageHeader'
+import PagePagination from '@/components/PagePagination'
+import LovestoryList from './LovestoryList'
 
 export default {
-  components: { PageHeader },
+  components: { PageHeader, PagePagination, LovestoryList },
   data () {
     return {
-      content: '卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡'
+      paginationData: {
+        current: 1,
+        total: 1,
+        size: 5
+      },
+      storyList: [ ]
     }
   },
   methods: {
-    aaa (type) {
-      console.log(type)
+    async getList (page = 1) {
+      try {
+        let res = await articleService.articles({
+          category: 6,
+          page,
+          per_page: this.paginationData.size
+        })
+        // console.log('success', res)
+        this.storyList = res.data.articles
+        let {count: total, page: current, per_page: size} = res.data
+        this.paginationData = {
+          current, total, size
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
+  },
+  mounted: async function () {
+    this.getList()
   }
 
 }
@@ -33,11 +56,11 @@ export default {
 
 <style lang="less" scoped>
 .love-story-page-root {
+  flex: 1;
   width: 100%;
   box-sizing: border-box;
   .love-story-content-box {
     width: 100%;
-    min-height: 500px;
     box-sizing: border-box;
     padding: 15px 10px;
     font-size: 14px;
