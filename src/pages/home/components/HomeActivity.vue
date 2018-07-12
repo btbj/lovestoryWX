@@ -46,7 +46,7 @@ export default {
           page,
           per_page: 1
         })
-        console.log('success', res)
+        // console.log('success', res)
         if (res.data.activities.length) {
           this.activityInfo = res.data.activities[0]
         }

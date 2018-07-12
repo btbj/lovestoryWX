@@ -27,6 +27,7 @@ import MyAccount from '@/pages/usercenter/myaccount/MyAccount'
 import EditPassword from '@/pages/usercenter/myaccount/modules/EditPassword'
 import Register from '@/pages/register/Register'
 import ArticleDetail from '@/pages/articledetail/ArticleDetail'
+import UserInfo from '@/pages/userinfo/UserInfo'
 
 Vue.use(Router)
 
@@ -164,6 +165,11 @@ export default new Router({
       path: '/article/:ArticleId',
       name: 'ArticleDetail',
       component: ArticleDetail
+    },
+    {
+      path: '/user/:UserId',
+      name: 'UserInfo',
+      component: UserInfo
     }
   ]
 })

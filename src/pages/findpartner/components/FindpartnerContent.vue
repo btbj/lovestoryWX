@@ -6,6 +6,7 @@
     <search-box v-model="searchData.keyword" @search="getList"></search-box>
     <sort-box v-model="searchData.sort" @sortChanged="getList"></sort-box>
     <findpartner-list :list="userList"></findpartner-list>
+    <page-pagination :paginationData="paginationData" @change="getList"></page-pagination>
   </div>
 </template>
 
@@ -15,9 +16,10 @@ import PageHeader from '@/components/PageHeader'
 import SearchBox from './SearchBox'
 import SortBox from './SortBox'
 import FindpartnerList from './FindpartnerList'
+import PagePagination from '@/components/PagePagination'
 
 export default {
-  components: { PageHeader, SearchBox, SortBox, FindpartnerList },
+  components: { PageHeader, SearchBox, SortBox, FindpartnerList, PagePagination },
   data () {
     return {
       searchData: {
@@ -54,7 +56,11 @@ export default {
           per_page: this.paginationData.size
         })
         this.userList = res.data.users
-        console.log(res)
+        let {count: total, page: current, per_page: size} = res.data
+        this.paginationData = {
+          current, total, size
+        }
+        // console.log(res)
       } catch (error) {
         userService.handleErr(error)
       }

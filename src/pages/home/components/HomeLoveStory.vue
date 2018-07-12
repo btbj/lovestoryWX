@@ -49,7 +49,7 @@ export default {
           page,
           per_page: 3
         })
-        console.log('success', res)
+        // console.log('success', res)
         this.storyList = res.data.articles
       } catch (error) {
         console.log(error)

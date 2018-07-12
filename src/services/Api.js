@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { Toast } from 'mint-ui'
+import router from '@/router'
 
 const Host = 'http://php.gooduo.net/lovestory233/index.php/'
 const Http = axios.create({
@@ -57,6 +59,10 @@ export default {
     const errcode = res.error_code
     if (!errcode) {
       console.error('错误信息没有错误码: ', res)
+      return false
+    } else if (errcode === 110 || errcode === 101) {
+      Toast('请重新登录')
+      router.replace('/login')
       return false
     }
     return res

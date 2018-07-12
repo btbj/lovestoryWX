@@ -8,7 +8,7 @@
           <div class="profile-item">年龄：{{member.age}}</div>
           <div class="profile-item">身高：{{member.height}}</div>
           <div class="profile-item">学历：{{member.education}}</div>
-          <div class="profile-btn">查看详情</div>
+          <div class="profile-btn" @click="CheckUser(member)">查看详情</div>
         </div>
       </div>
     </div>
@@ -17,7 +17,12 @@
 
 <script>
 export default {
-  props: ['list']
+  props: ['list'],
+  methods: {
+    CheckUser (user) {
+      this.$router.push({name: 'UserInfo', params: {'UserId': user.id}})
+    }
+  }
 
 }
 </script>

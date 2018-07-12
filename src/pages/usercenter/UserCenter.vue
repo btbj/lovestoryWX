@@ -12,7 +12,13 @@ import UserHeader from '@/components/UserHeader'
 import UsercenterContent from './components/UsercenterContent'
 
 export default {
-  components: { UserHeader, UsercenterContent }
+  components: { UserHeader, UsercenterContent },
+  mounted: async function () {
+    let token = this.$store.getters.token
+    if (!token) {
+      this.$router.replace('/login')
+    }
+  }
 }
 </script>
 

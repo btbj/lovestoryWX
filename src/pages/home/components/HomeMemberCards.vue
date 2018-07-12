@@ -69,7 +69,7 @@ export default {
           token: this.$store.getters.token,
           num: 4
         })
-        console.log('success', res)
+        // console.log('success', res)
         this.memberCardsList = res.data.users
         this.show = true
       } catch (error) {

@@ -61,7 +61,7 @@ export default {
           page: 1,
           per_page: 3
         })
-        console.log('success', res)
+        // console.log('success', res)
         this.newsList = res.data.articles
       } catch (error) {
         console.log(error)
