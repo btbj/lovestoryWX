@@ -1,10 +1,10 @@
 <template>
   <div class="love-story-page-root">
     <page-header noMenu>
-      <span slot="title">晒幸福</span>
+      <span slot="title">定制服务</span>
     </page-header>
     <div class="love-story-content-box">
-      <lovestory-list :list="storyList"></lovestory-list>
+      <custom-service-list :list="newsList"></custom-service-list>
       <page-pagination :paginationData="paginationData" @change="getList"></page-pagination>
     </div>
   </div>
@@ -14,10 +14,10 @@
 import articleService from '@/services/articleService'
 import PageHeader from '@/components/PageHeader'
 import PagePagination from '@/components/PagePagination'
-import LovestoryList from './LovestoryList'
+import CustomServiceList from './CustomServiceList'
 
 export default {
-  components: { PageHeader, PagePagination, LovestoryList },
+  components: { PageHeader, PagePagination, CustomServiceList },
   data () {
     return {
       paginationData: {
@@ -25,19 +25,19 @@ export default {
         total: 1,
         size: 5
       },
-      storyList: [ ]
+      newsList: [ ]
     }
   },
   methods: {
     async getList (page = 1) {
       try {
         let res = await articleService.articles({
-          category: 6,
+          category: 5,
           page,
           per_page: this.paginationData.size
         })
         // console.log('success', res)
-        this.storyList = res.data.articles
+        this.newsList = res.data.articles
         let {count: total, page: current, per_page: size} = res.data
         this.paginationData = {
           current, total, size

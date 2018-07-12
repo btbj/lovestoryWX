@@ -23,6 +23,7 @@ export default {
 <style lang="less" scoped>
 .service-page-root{
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }

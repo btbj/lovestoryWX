@@ -1,5 +1,5 @@
 <template>
-  <div class="aboutus-page-root">
+  <div class="newsinfo-page-root">
     <basic-header></basic-header>
     <logo-box></logo-box>
     <newsinfo-content></newsinfo-content>
@@ -23,6 +23,7 @@ export default {
 <style lang="less" scoped>
 .newsinfo-page-root{
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }

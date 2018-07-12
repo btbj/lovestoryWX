@@ -15,7 +15,8 @@
     </div>
      <div class="news-info-box">
       <div class="news-info-content">
-        <div class="info-item" v-for="(news, index) in newsList" :key="index">
+        <div class="info-item" v-for="(news, index) in newsList" :key="index"
+          @click="checkNewsDetail(news)">
           <div class="info-pic" :style="`background-image: url('${news.image_url}')`">
           </div>
           <div class="info-words">
@@ -50,8 +51,8 @@ export default {
     }
   },
   methods: {
-    checkNewsDetail (id) {
-      this.$router.push({name: 'news-detail', params: {'category': this.type, id}})
+    checkNewsDetail (news) {
+      this.$router.push({name: 'ArticleDetail', params: {'ArticleId': news.id}})
     },
     async getNews (type = 'company') {
       this.type = type
@@ -61,7 +62,7 @@ export default {
           page: 1,
           per_page: 3
         })
-        console.log('success', res)
+        // console.log('success', res)
         this.newsList = res.data.articles
       } catch (error) {
         console.log(error)

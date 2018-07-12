@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="activity-more-box">
-      <div class="more-btn">查看更多 >></div>
+      <div class="more-btn" @click="navTo('Activities')">查看更多 >></div>
     </div>
   </div>
 </template>
@@ -40,13 +40,16 @@ export default {
     }
   },
   methods: {
+    navTo (destRouteName) {
+      this.$router.push({name: destRouteName})
+    },
     async getList (page = 1) {
       try {
         let res = await activityService.activities({
           page,
           per_page: 1
         })
-        console.log('success', res)
+        // console.log('success', res)
         if (res.data.activities.length) {
           this.activityInfo = res.data.activities[0]
         }
