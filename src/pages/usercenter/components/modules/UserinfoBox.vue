@@ -59,6 +59,7 @@ export default {
       align-items: center;
       justify-content: space-around;
       margin-top: 20px;
+      box-sizing: border-box;
       .item{
         display: flex;
         flex-direction: row;
@@ -68,9 +69,11 @@ export default {
           font-size: 18px;
         }
         .fans{
+          margin-top: -2px;
           color: #3498db;
         }
         .follow{
+          margin-top: -2px;
           color: #e74c3c;
         }
       }

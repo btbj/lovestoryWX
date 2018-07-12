@@ -39,6 +39,7 @@ export default {
   align-items: center;
   justify-content: center;
   .plain-input{
+    max-width: 100%;
     flex: 1;
     display: flex;
     align-items: center;

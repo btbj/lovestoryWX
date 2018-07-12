@@ -18,6 +18,12 @@ import VisitorPage from '@/pages/usercenter/datingrecords/modules/VisitorPage'
 import CompleteMaterial from '@/pages/usercenter/completematerial/CompleteMaterial'
 import MyBasic from '@/pages/usercenter/completematerial/mybasic/MyBasic'
 import MyDetail from '@/pages/usercenter/completematerial/mydetail/MyDetail'
+import EconomicStrength from '@/pages/usercenter/completematerial/mydetail/modules/EconomicStrength'
+import LifeStyle from '@/pages/usercenter/completematerial/mydetail/modules/LifeStyle'
+import WorkStudy from '@/pages/usercenter/completematerial/mydetail/modules/WorkStudy'
+import Appearance from '@/pages/usercenter/completematerial/mydetail/modules/Appearance'
+import MarriageConcept from '@/pages/usercenter/completematerial/mydetail/modules/MarriageConcept'
+import Hobby from '@/pages/usercenter/completematerial/mydetail/modules/Hobby'
 import MyIntro from '@/pages/usercenter/completematerial/myintro/MyIntro'
 import MyOption from '@/pages/usercenter/completematerial/myoption/MyOption'
 import MyPics from '@/pages/usercenter/completematerial/mypics/MyPics'
@@ -132,7 +138,40 @@ export default new Router({
     {
       path: '/usercenter/completematerial/mydetail',
       name: 'MyDetail',
-      component: MyDetail
+      redirect: '/usercenter/completematerial/mydetail/economic',
+      component: MyDetail,
+      children: [
+        {
+          path: 'economic',
+          name: 'UserCenter-CompleteMaterial-MyDetail-Economic',
+          component: EconomicStrength
+        },
+        {
+          path: 'life',
+          name: 'UserCenter-CompleteMaterial-MyDetail-Life',
+          component: LifeStyle
+        },
+        {
+          path: 'work',
+          name: 'UserCenter-CompleteMaterial-MyDetail-Work',
+          component: WorkStudy
+        },
+        {
+          path: 'appearance',
+          name: 'UserCenter-CompleteMaterial-MyDetail-Appearance',
+          component: Appearance
+        },
+        {
+          path: 'marriage',
+          name: 'UserCenter-CompleteMaterial-MyDetail-Marriage',
+          component: MarriageConcept
+        },
+        {
+          path: 'hobby',
+          name: 'UserCenter-CompleteMaterial-MyDetail-Hobby',
+          component: Hobby
+        }
+      ]
     },
     {
       path: '/usercenter/completematerial/myintro',
