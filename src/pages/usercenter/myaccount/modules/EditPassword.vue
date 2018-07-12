@@ -15,7 +15,7 @@
         <div class="item-row">
           <div class="row-label">手机验证码:</div>
           <div class="row-content">
-            <el-input placeholder="请输入验证码" v-model="vecode" maxlength="4"></el-input>
+            <plain-input class="right-selectbox" v-model="vecode" maxlength="4" placeholder="请输入验证码"></plain-input>
           </div>
         </div>
         <div class="item-row">
@@ -34,15 +34,15 @@
         <div class="item-row">
           <div class="row-label">设置新密码:</div>
           <div class="row-content">
-            <el-input type="password" placeholder="6-20位字母、数字组合" v-model="newPwd"
-              maxlength="20" auto-complete="new-password"></el-input>
+            <plain-input type="password" class="right-selectbox" v-model="newPwd" maxlength="20"
+             placeholder="6-20位字母、数字组合" auto-complete="new-password"></plain-input>
           </div>
         </div>
         <div class="item-row">
           <div class="row-label">确认新密码:</div>
           <div class="row-content">
-            <el-input type="password" placeholder="再次填写密码" v-model="againPwd"
-              maxlength="20" auto-complete="new-password"></el-input>
+            <plain-input type="password" placeholder="再次填写密码" v-model="againPwd"
+              maxlength="20" auto-complete="new-password"></plain-input>
           </div>
         </div>
       </div>
@@ -54,9 +54,10 @@
 <script>
 import UserHeader from '@/components/UserHeader'
 import OtpBtn from '@/components/OtpBtn'
+import PlainInput from '@/components/PlainInput'
 
 export default {
-  components: { UserHeader, OtpBtn },
+  components: { UserHeader, OtpBtn, PlainInput },
   data () {
     return {
       phone: '',
@@ -109,6 +110,9 @@ export default {
           box-sizing: border-box;
           display: flex;
           align-items: center;
+          .right-selectbox {
+            flex: 1;
+          }
           .otp-btn{
             margin-left: 15px;
           }
