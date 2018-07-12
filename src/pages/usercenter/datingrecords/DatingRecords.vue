@@ -1,7 +1,7 @@
 <template>
   <div class="dating-records-root">
     <div class="records-type-box" @click="navTo('VisitorPage')">
-      <div class="type-pic" style="background-image: url('https://dummyimage.com/50x50/333/3ff.jpg&text=pic')"></div>
+      <div class="type-pic"><img :src="Icons.Visitors" alt=""></div>
       <div class="type-content">
         <div class="type-label">谁看过我</div>
         <div class="type-icon">
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="records-type-box"  @click="navTo('HistoryPage')">
-      <div class="type-pic" style="background-image: url('https://dummyimage.com/50x50/333/3ff.jpg&text=pic')"></div>
+      <div class="type-pic"><img :src="Icons.History" alt=""></div>
       <div class="type-content">
         <div class="type-label">我看过谁</div>
         <div class="type-icon">
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="records-type-box"  @click="navTo('FollowerPage')">
-      <div class="type-pic" style="background-image: url('https://dummyimage.com/50x50/333/3ff.jpg&text=pic')"></div>
+      <div class="type-pic"><img :src="Icons.Fans" alt=""></div>
       <div class="type-content">
         <div class="type-label">谁关注我</div>
         <div class="type-icon">
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="records-type-box"  @click="navTo('FollowingPage')">
-      <div class="type-pic" style="background-image: url('https://dummyimage.com/50x50/333/3ff.jpg&text=pic')"></div>
+      <div class="type-pic"><img :src="Icons.Follows" alt=""></div>
       <div class="type-content">
         <div class="type-label">我关注谁</div>
         <div class="type-icon">
@@ -40,13 +40,27 @@
 </template>
 
 <script>
+import IconFans from '../icons/recordsFans.png'
+import IconVisitors from '../icons/recordsVisitor.png'
+import IconHistory from '../icons/recordsHistory.png'
+import IconFollows from '../icons/recordsFollows.png'
+
 export default {
+  data () {
+    return {
+      Icons: {
+        Fans: IconFans,
+        Follows: IconFollows,
+        Visitors: IconVisitors,
+        History: IconHistory
+      }
+    }
+  },
   methods: {
     navTo (destName) {
       this.$router.push({name: destName})
     }
   }
-
 }
 </script>
 
@@ -80,6 +94,9 @@ export default {
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
+      img{
+        max-width: 100%;
+      }
     }
     .type-content {
       flex: 1;

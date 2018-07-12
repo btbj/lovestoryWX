@@ -16,7 +16,7 @@ export default {
   components: { MenuBtn },
   methods: {
     goBack () {
-      this.$router.push({name: 'Home'})
+      this.$router.go(-1)
     }
   }
 }
