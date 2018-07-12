@@ -67,6 +67,7 @@ export default {
 
 <style lang="less" scoped>
 .about-us-page-root {
+  flex: 1;
   width: 100%;
   box-sizing: border-box;
   .about-us-title{
@@ -78,7 +79,7 @@ export default {
   }
   .about-us-content-box {
     width: 100%;
-    min-height: 300px;
+    // min-height: 300px;
     box-sizing: border-box;
     padding: 15px 10px;
     font-size: 14px;

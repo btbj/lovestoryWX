@@ -9,6 +9,7 @@ import LoveStory from '@/pages/lovestory/LoveStory'
 import FindPartner from '@/pages/findpartner/FindPartner'
 import CustomService from '@/pages/customservice/CustomService'
 import Activities from '@/pages/activities/Activities'
+import ActivityDetail from '@/pages/activities/ActivityDetail'
 import UserCenter from '@/pages/usercenter/UserCenter'
 import DatingRecords from '@/pages/usercenter/datingrecords/DatingRecords'
 import FollowerPage from '@/pages/usercenter/datingrecords/modules/FollowerPage'
@@ -75,6 +76,11 @@ export default new Router({
       path: '/activities',
       name: 'Activities',
       component: Activities
+    },
+    {
+      path: '/activity/:ActivityId',
+      name: 'ActivityDetail',
+      component: ActivityDetail
     },
     {
       path: '/usercenter',

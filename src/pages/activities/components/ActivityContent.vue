@@ -1,13 +1,10 @@
 <template>
   <div class="news-info-page-root">
-    <page-header>
-      <span slot="title">{{titleText}}</span>
-      <span slot="nav-item" @click="changeType('notification')">通知公告</span>
-      <span slot="nav-item" @click="changeType('companynews')">公司新闻</span>
-      <span slot="nav-item" @click="changeType('industrynews')">行业资讯</span>
+    <page-header noMenu>
+      <span slot="title">活动互动</span>
     </page-header>
     <div class="news-info-content-box">
-      <news-list :list="newsList"></news-list>
+      <activity-list :list="newsList"></activity-list>
       <page-pagination :paginationData="paginationData" @change="getList"></page-pagination>
     </div>
   </div>
@@ -16,20 +13,14 @@
 <script>
 import PageHeader from '@/components/PageHeader'
 import PagePagination from '@/components/PagePagination'
-import NewsList from './NewsList'
-import articleService from '@/services/articleService'
+import ActivityList from './ActivityList'
+import activityService from '@/services/activityService'
 
 export default {
-  components: { PageHeader, PagePagination, NewsList },
+  components: { PageHeader, PagePagination, ActivityList },
   data () {
     return {
-      type: 'notification',
       newsList: [],
-      typeIndex: {
-        'notification': 1,
-        'companynews': 2,
-        'industrynews': 3
-      },
       paginationData: {
         current: 1,
         total: 1,
@@ -38,20 +29,14 @@ export default {
     }
   },
   methods: {
-    changeType (type) {
-      console.log(type)
-      this.type = type
-      this.getList(1)
-    },
     async getList (page = 1) {
       try {
-        let res = await articleService.articles({
-          category: this.typeIndex[this.type],
+        let res = await activityService.activities({
           page,
           per_page: this.paginationData.size
         })
         console.log('success', res)
-        this.newsList = res.data.articles
+        this.newsList = res.data.activities
         let {count: total, page: current, per_page: size} = res.data
         this.paginationData = {
           current, total, size
@@ -59,16 +44,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    }
-  },
-  computed: {
-    titleText () {
-      let typeTitle = {
-        'notification': '通知公告',
-        'companynews': '公司新闻',
-        'industrynews': '行业资讯'
-      }
-      return typeTitle[this.type]
     }
   },
   mounted: async function () {
