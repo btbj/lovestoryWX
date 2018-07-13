@@ -206,6 +206,11 @@ export default {
       }
       return result
     }
+  },
+  mounted: async function () {
+    if (this.$store.getters.token) {
+      this.$router.replace('/usercenter')
+    }
   }
 }
 </script>

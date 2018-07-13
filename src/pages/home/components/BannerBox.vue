@@ -5,13 +5,26 @@
 </template>
 
 <script>
-import imageService from '@/services/imageService'
+import siteService from '@/services/siteService'
 
 export default {
-  computed: {
-    bannerImg () {
-      return imageService.banner
+  data () {
+    return {
+      bannerImg: ''
     }
+  },
+  methods: {
+    async getSiteInfo (id) {
+      try {
+        let res = await siteService.info({id})
+        this.bannerImg = res.data.info.url
+      } catch (error) {
+        siteService.handleErr(error)
+      }
+    }
+  },
+  mounted: async function () {
+    this.getSiteInfo(21)
   }
 }
 </script>
