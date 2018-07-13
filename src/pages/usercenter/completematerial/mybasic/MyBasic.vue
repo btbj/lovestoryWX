@@ -257,13 +257,13 @@ export default {
           wechat: this.contactInfo.wechat
         })
         Toast(res.message)
-        this.$router.push({name: 'MyIntro'})
+        this.$router.replace({name: 'MyIntro'})
       } catch (error) {
         userService.handleErr(error)
       }
     },
     skipPage () {
-      this.$router.push({name: 'MyIntro'})
+      this.$router.replace({name: 'MyIntro'})
     }
   },
   mounted: async function () {
