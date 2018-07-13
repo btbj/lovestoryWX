@@ -1,7 +1,7 @@
 <template>
   <div class="my-account-root">
     <div class="account-item-box"  @click="navTo('EditPassword')">
-      <div class="item-pic" style="background-image: url('https://dummyimage.com/30x30/333/3ff.jpg&text=pic')"></div>
+      <div class="item-pic"><img :src="Icons.changePwd" alt=""></div>
       <div class="item-content">
         <div class="item-label">密码修改</div>
         <div class="item-icon">
@@ -13,7 +13,16 @@
 </template>
 
 <script>
+import IconChangePwd from '../icons/changePwd.png'
+
 export default {
+  data () {
+    return {
+      Icons: {
+        changePwd: IconChangePwd
+      }
+    }
+  },
   methods: {
     navTo (destName) {
       this.$router.push({name: destName})
@@ -45,12 +54,15 @@ export default {
     .item-pic {
       width: 30px;
       height: 30px;
-      border: 1px solid black;
+      // border: 1px solid black;
       box-sizing: border-box;
       margin-right: 20px;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
+      // background-repeat: no-repeat;
+      // background-position: center center;
+      // background-size: cover;
+      img{
+        width: 100%;
+      }
     }
     .item-content {
       flex: 1;
