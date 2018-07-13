@@ -52,13 +52,13 @@ export default {
           monologue: this.intro
         })
         Toast(res.message)
-        this.$router.push({name: 'MyPics'})
+        this.$router.replace({name: 'MyPics'})
       } catch (error) {
         userService.handleErr(error)
       }
     },
     skipPage () {
-      this.$router.push({name: 'MyPics'})
+      this.$router.replace({name: 'MyPics'})
     }
   },
   computed: {
