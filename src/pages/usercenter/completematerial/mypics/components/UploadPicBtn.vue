@@ -1,11 +1,13 @@
 <template>
-  <div class="user-avatar-root">
-    <div class="user-avatar-pic"
-      :style="`background-image: url('${value}');`"
-      @click="changeAvatar"></div>
-    <!-- <div class="user-avatar-pic"
-      @click="changeAvatar">
-      <img :src="value" alt="pic"></div> -->
+  <div class="upload-avatar-root">
+    <div class="upload-btn-box" @click="uploadImgToServer">
+      <div class="pic">
+        <div class="add-icon-box">
+          <span class="mdi-control_point item-icon"></span>
+          <div class="add-word">上传照片</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,10 +15,10 @@
 import jssdk from 'weixin-js-sdk'
 import jssdkService from '@/services/jssdkService'
 import userService from '@/services/userService'
+// import fileService from '@/services/fileService'
 import { Toast, Indicator } from 'mint-ui'
 
 export default {
-  props: ['value'],
   data () {
     return {
       wx: jssdk,
@@ -44,32 +46,6 @@ export default {
       } catch (error) {
         jssdkService.handleErr(error)
       }
-    },
-    async changeAvatar () {
-      // console.log('change avatar')
-      Indicator.open()
-      try {
-        let chooseImgRes = await this.chooseImage()
-        // console.log('choose img', chooseImgRes)
-        let uploadImgRes = await this.uploadImg(chooseImgRes.localIds[0])
-        // console.log('upload img', uploadImgRes)
-        let tempImgRes = await jssdkService.getWechatTempImage({
-          token: this.$store.getters.token,
-          media_id: uploadImgRes.serverId
-        })
-        // console.log(tempImgRes)
-        this.$emit('input', tempImgRes.data.url)
-        let updateAvatarRes = await userService.setAvatar({
-          token: this.$store.getters.token,
-          image_id: tempImgRes.data.id
-        })
-        // console.log(updateAvatarRes)
-        Toast(updateAvatarRes.message)
-      } catch (error) {
-        jssdkService.handleErr(error)
-        // console.log(error)
-      }
-      Indicator.close()
     },
     chooseImage () {
       return new Promise((resolve, reject) => {
@@ -100,6 +76,32 @@ export default {
           }
         })
       })
+    },
+    async uploadImgToServer () {
+      Indicator.open()
+      try {
+        let chooseImgRes = await this.chooseImage()
+        // console.log('choose img', chooseImgRes)
+        let uploadImgRes = await this.uploadImg(chooseImgRes.localIds[0])
+        // console.log('upload img', uploadImgRes)
+        let tempImgRes = await jssdkService.getWechatTempImage({
+          token: this.$store.getters.token,
+          media_id: uploadImgRes.serverId
+        })
+        // console.log(tempImgRes)
+        this.$emit('input', tempImgRes.data.url)
+        let addAlbumImageRes = await userService.addAlbumImage({
+          token: this.$store.getters.token,
+          image_id: tempImgRes.data.id
+        })
+        // console.log(updateAvatarRes)
+        this.$emit('changed')
+        Toast(addAlbumImageRes.message)
+      } catch (error) {
+        jssdkService.handleErr(error)
+        // console.log(error)
+      }
+      Indicator.close()
     }
   },
   mounted: async function () {
@@ -109,23 +111,50 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.user-avatar-root{
-  .user-avatar-pic{
-    height: 70px;
-    width: 70px;
-    border-radius: 50%;
-    border: 1px solid #ddd;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    overflow: hidden;
+.upload-avatar-root{
+  height: 100%;
+  width: 100%;
+  .upload-btn-box {
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgrey;
+    box-sizing: border-box;
+    padding: 9px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    // img{
-    //   max-height: 100%;
-    //   max-width: 100%;
-    // }
+    .pic {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .img-style {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      .add-icon-box {
+        width: 100%;
+        height: 100%;
+        background-color: #E8E8E8;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        .item-icon {
+          font-size: 80px;
+          color: white;
+          margin: 5px 0;
+        }
+        .add-word {
+          font-size: 16px;
+        }
+      }
+    }
   }
 }
+
 </style>
