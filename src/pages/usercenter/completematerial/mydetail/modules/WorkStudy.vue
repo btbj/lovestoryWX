@@ -52,15 +52,17 @@
       </el-form>
     </div>
      <div class="option-btn">
-      <div class="btn">保存</div>
+      <div class="btn" @click="saveDetail">保存</div>
       <!-- <div class="btn">跳过此页</div> -->
     </div>
   </div>
 </template>
 
 <script>
+import userService from '@/services/userService'
 import PlainPicker from '@/components/PlainPicker'
 import PlainInput from '@/components/PlainInput'
+import { Toast } from 'mint-ui'
 
 export default {
   components: { PlainPicker, PlainInput },
@@ -113,6 +115,41 @@ export default {
           '泰国语', '印度语', '希腊语', '匈牙利语', '挪威语', '波兰语', '缅甸语', '其他']
       }
     }
+  },
+  methods: {
+    async getDetails () {
+      try {
+        let res = await userService.getUserDetails({
+          token: this.$store.getters.token,
+          data: Object.keys(this.workInfo)
+        })
+        console.log(res)
+        Object.keys(res.data.details).forEach(key => {
+          if (key === 'studyLanguages') {
+            this.workInfo[key] = res.data.details[key]
+          } else {
+            this.workInfo[key] = res.data.details[key][0]
+          }
+        })
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    },
+    async saveDetail () {
+      try {
+        let res = await userService.setUserDetails({
+          token: this.$store.getters.token,
+          data: this.workInfo
+        })
+        console.log(res)
+        Toast(res.message)
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    }
+  },
+  mounted: async function () {
+    this.getDetails()
   }
 
 }

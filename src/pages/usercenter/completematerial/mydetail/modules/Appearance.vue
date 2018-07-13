@@ -75,15 +75,17 @@
       </el-form>
     </div>
   <div class="option-btn">
-    <div class="btn">保存</div>
+    <div class="btn" @click="saveDetails">保存</div>
       <!-- <div class="btn">跳过此页</div> -->
   </div>
 </div>
 </template>
 
 <script>
+import userService from '@/services/userService'
 import PlainPicker from '@/components/PlainPicker'
 import PlainInput from '@/components/PlainInput'
+import { Toast } from 'mint-ui'
 
 export default {
   components: { PlainPicker, PlainInput },
@@ -125,6 +127,41 @@ export default {
         ]
       }
     }
+  },
+  methods: {
+    async getDetails () {
+      try {
+        let res = await userService.getUserDetails({
+          token: this.$store.getters.token,
+          data: Object.keys(this.appearanceInfo)
+        })
+        console.log(res)
+        Object.keys(res.data.details).forEach(key => {
+          if (key === 'appearWearingStyle') {
+            this.appearanceInfo[key] = res.data.details[key]
+          } else {
+            this.appearanceInfo[key] = res.data.details[key][0]
+          }
+        })
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    },
+    async saveDetails () {
+      try {
+        let res = await userService.setUserDetails({
+          token: this.$store.getters.token,
+          data: this.appearanceInfo
+        })
+        console.log(res)
+        Toast(res.message)
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    }
+  },
+  mounted: async function () {
+    this.getDetails()
   }
 }
 </script>
