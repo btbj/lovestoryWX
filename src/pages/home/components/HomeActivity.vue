@@ -4,7 +4,7 @@
     <div class="activity-label-box">Activity</div>
     <div class="activity-intro-box">
       <div class="intro-info-box" style="margin-bottom: 20px">
-        <div class="title-info">{{activityInfo.title}}</div>
+        <div class="title-info" @click="CheckActivity(activityInfo.id)">{{activityInfo.title}}</div>
         <div class="item-info" v-show="activityInfo.time">
           活动时间：{{activityInfo.time}}
         </div>
@@ -42,6 +42,9 @@ export default {
   methods: {
     navTo (destRouteName) {
       this.$router.push({name: destRouteName})
+    },
+    CheckActivity (id) {
+      this.$router.push({name: 'ActivityDetail', params: {'ActivityId': id}})
     },
     async getList (page = 1) {
       try {

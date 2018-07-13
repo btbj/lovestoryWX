@@ -9,23 +9,38 @@
         </div>
       </div>
     </div>
+    <div class="account-item-box"  @click="logoutUser">
+      <div class="item-pic"><img :src="Icons.logout" alt=""></div>
+      <div class="item-content">
+        <div class="item-label">退出登录</div>
+        <div class="item-icon">
+          <span class="mdi-keyboard_arrow_right icon"></span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import IconChangePwd from '../icons/changePwd.png'
+import IconLogout from '../icons/logout.png'
 
 export default {
   data () {
     return {
       Icons: {
-        changePwd: IconChangePwd
+        changePwd: IconChangePwd,
+        logout: IconLogout
       }
     }
   },
   methods: {
     navTo (destName) {
       this.$router.push({name: destName})
+    },
+    logoutUser () {
+      this.$store.dispatch('logout')
+      this.$router.replace('/')
     }
   }
 }

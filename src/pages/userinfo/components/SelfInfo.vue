@@ -1,8 +1,16 @@
 <template>
   <div class="self-info-root">
-    <div class="user-avatar-box">
+    <mt-swipe :auto="0" class="user-pic-box">
+      <mt-swipe-item class="user-pic-item">
+        <div class="user-pic-img" :style="`background-image: url('${userInfo.head_image_url}');`"></div>
+      </mt-swipe-item>
+      <mt-swipe-item class="user-pic-item" v-for="(pic, index) in albumList" :key="index">
+        <div class="user-pic-img" :style="`background-image: url('${pic.url}');`"></div>
+      </mt-swipe-item>
+    </mt-swipe>
+    <!-- <div class="user-avatar-box">
       <img :src="userInfo.head_image_url" alt="pic">
-    </div>
+    </div> -->
     <div class="user-info-box">
       <div class="nickname">{{userInfo.nickname}}</div>
       <div class="basic-info">{{userInfo.age}}岁，{{userInfo.sex}}，{{userInfo.province}}</div>
@@ -54,7 +62,7 @@
 
 <script>
 export default {
-  props: ['info'],
+  props: ['info', 'albumList'],
   computed: {
     userInfo () {
       return this.info.info
@@ -78,6 +86,10 @@ export default {
     img{
       max-width: 100%;
     }
+  }
+  .user-pic-box{
+    height: 400px;
+    width: 100%;
   }
   .user-info-box{
     width: 100%;
@@ -126,6 +138,21 @@ export default {
           color: #444;
         }
       }
+    }
+  }
+}
+</style>
+
+<style lang="less">
+.user-pic-box{
+  .user-pic-item{
+    text-align: center;
+    .user-pic-img{
+      height: 100%;
+      margin: auto;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
     }
   }
 }

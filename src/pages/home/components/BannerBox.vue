@@ -1,17 +1,34 @@
 <template>
   <div class="banner-box-root">
-    <div class="banner-img" :style="`background-image: url('${bannerImg}');`"></div>
+    <mt-swipe :auto="4000" class="banner-img-box">
+      <mt-swipe-item class="banner-img-item" v-for="(pic, index) in bannerList" :key="index">
+        <div class="banner-img" :style="`background-image: url('${pic.url}');`"></div>
+      </mt-swipe-item>
+    </mt-swipe>
   </div>
 </template>
 
 <script>
-import imageService from '@/services/imageService'
+import siteService from '@/services/siteService'
 
 export default {
-  computed: {
-    bannerImg () {
-      return imageService.banner
+  data () {
+    return {
+      bannerList: []
     }
+  },
+  methods: {
+    async getSiteInfo (id) {
+      try {
+        let res = await siteService.info({id})
+        this.bannerList = res.data.info
+      } catch (error) {
+        siteService.handleErr(error)
+      }
+    }
+  },
+  mounted: async function () {
+    this.getSiteInfo([21, 22])
   }
 }
 </script>

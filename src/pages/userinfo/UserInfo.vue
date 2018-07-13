@@ -7,7 +7,7 @@
     </page-header>
 
     <div class="user-info-body">
-      <self-info :info="userInfo" v-if="userInfo"></self-info>
+      <self-info :info="userInfo" :albumList="AlbumList" v-if="userInfo"></self-info>
       <extra-info :info="userInfo" v-if="userInfo"></extra-info>
       <follow-btn></follow-btn>
     </div>
@@ -33,7 +33,8 @@ export default {
   components: { BasicHeader, LogoBox, BasicQrcode, BasicBottom, PageHeader, SelfInfo, ExtraInfo, FollowBtn },
   data () {
     return {
-      userInfo: null
+      userInfo: null,
+      AlbumList: []
     }
   },
   methods: {
@@ -48,6 +49,18 @@ export default {
       } catch (error) {
         userService.handleErr(error)
       }
+    },
+    async getAlbum () {
+      try {
+        let res = await userService.albumImages({
+          token: this.$store.getters.token,
+          user_id: this.$route.params.UserId
+        })
+        console.log(res)
+        this.AlbumList = res.data.images
+      } catch (error) {
+        userService.handleErr(error)
+      }
     }
   },
   mounted: async function () {
@@ -57,6 +70,7 @@ export default {
       this.$router.replace('/login')
     } else {
       await this.getUserInfo()
+      await this.getAlbum()
     }
   }
 }
