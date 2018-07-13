@@ -10,37 +10,37 @@
           <div class="content-item-row">
             <div class="item-column">
               <span class="item-label">所在地区</span>：
-              <span>{{optionAddressText}}</span>
+              <span class="item-content">{{optionAddressText}}</span>
             </div>
             <div class="item-column">
               <span class="item-label">身高范围</span>：
-              <span>{{optionHeightText}}</span>
+              <span class="item-content">{{optionHeightText}}</span>
             </div>
           </div>
           <div class="content-item-row">
             <div class="item-column">
               <span class="item-label">婚史</span>：
-              <span>{{optionInfo.marriageStatus || '不限'}}</span>
+              <span class="item-content">{{optionInfo.marriageStatus || '不限'}}</span>
             </div>
             <div class="item-column">
               <span class="item-label">民族</span>：
-              <span>{{optionInfo.nation || '不限'}}</span>
+              <span class="item-content">{{optionInfo.nation || '不限'}}</span>
             </div>
           </div>
           <div class="content-item-row">
             <div class="item-column">
               <span class="item-label">学历</span>：
-              <span>{{optionInfo.education || '不限'}}</span>
+              <span class="item-content">{{optionInfo.education || '不限'}}</span>
             </div>
             <div class="item-column">
               <span class="item-label">有无照片</span>：
-              <span>{{optionInfo.hasPic || '不限'}}</span>
+              <span class="item-content">{{optionInfo.hasPic || '不限'}}</span>
             </div>
           </div>
           <div class="content-item-row">
             <div class="item-column">
               <span class="item-label">年龄范围</span>：
-              <span>{{optionAgeText}}</span>
+              <span class="item-content">{{optionAgeText}}</span>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
         </el-form>
       </div>
       <div class="option-btn">
-        <div class="btn">保存</div>
+        <div class="btn" @click="validateForm">保存</div>
         <!-- <div class="btn">跳过此页</div> -->
       </div>
     </div>
@@ -87,11 +87,13 @@
 </template>
 
 <script>
+import userService from '@/services/userService'
 import UserHeader from '@/components/UserHeader'
 import PlainPicker from '@/components/PlainPicker'
 import AreaPicker from '@/components/AreaPicker'
 import AgePicker from './components/AgePicker'
 import HeightPicker from './components/HeightPicker'
+import { Toast } from 'mint-ui'
 
 export default {
   components: { UserHeader, PlainPicker, AreaPicker, AgePicker, HeightPicker },
@@ -111,6 +113,59 @@ export default {
         education: ['高中及中专以下', '大专', '本科', '双学士', '硕士', '博士', '博士后'],
         nation: ['汉族', '藏族', '朝鲜族', '蒙古族', '回族', '满族', '维吾尔族', '壮族', '彝族', '苗族', '其它'],
         hasPic: ['无照片', '有照片']
+      }
+    }
+  },
+  methods: {
+    async getUserInfo () {
+      try {
+        let res = await userService.getInfo({
+          token: this.$store.getters.token
+        })
+        console.log(res)
+        let {province, city, age_max: ageMax, age_min: ageMin, height_max: heightMax, height_min: heightMin, marital_status: marriageStatus, education, nation, has_images: hasPic} = res.data.info.condition
+        this.optionInfo = {
+          address: [province, city],
+          age: [ageMin, ageMax],
+          marriageStatus,
+          height: [heightMin, heightMax],
+          education,
+          nation,
+          hasPic: hasPic === '0' ? '' : '有照片'
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    validateForm () {
+      this.$refs['infoForm'].validate(valid => {
+        if (valid) {
+          this.submitNewInfo()
+        } else {
+          console.log('error')
+        }
+      })
+    },
+    async submitNewInfo () {
+      console.log('submit new info')
+      try {
+        let {address, age, marriageStatus, height, education, nation, hasPic} = this.optionInfo
+        let res = await userService.setConditions({
+          token: this.$store.getters.token,
+          province: address[0],
+          city: address[1],
+          age_min: age[0],
+          age_max: age[1],
+          height_min: height[0],
+          height_max: height[1],
+          marital_status: marriageStatus,
+          education,
+          nation,
+          has_images: hasPic ? 1 : 0
+        })
+        Toast(res)
+      } catch (error) {
+        userService.handleErr(error)
       }
     }
   },
@@ -161,6 +216,9 @@ export default {
       }
       return result
     }
+  },
+  mounted: async function () {
+    this.getUserInfo()
   }
 
 }
@@ -221,6 +279,10 @@ export default {
             width: 50%;
             .item-label{
               text-align-last: justify;
+            }
+            .item-content {
+              flex: 1;
+              font-size: 12px;
             }
           }
         }

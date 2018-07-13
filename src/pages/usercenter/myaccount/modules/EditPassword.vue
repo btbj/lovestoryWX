@@ -8,7 +8,7 @@
         <div class="item-row">
           <div class="row-label">手机号:</div>
           <div class="row-content">
-            <span>152****7571</span>
+            <span>{{maskPhone}}</span>
             <otp-btn class="otp-btn" :phoneNumber="phone"></otp-btn>
           </div>
         </div>
@@ -46,15 +46,17 @@
           </div>
         </div>
       </div>
-      <div class="btn-box">确 定</div>
+      <div class="btn-box" @click="verifyCode">确 定</div>
     </div>
   </div>
 </template>
 
 <script>
+import userService from '@/services/userService'
 import UserHeader from '@/components/UserHeader'
 import OtpBtn from '@/components/OtpBtn'
 import PlainInput from '@/components/PlainInput'
+import { Indicator, Toast } from 'mint-ui'
 
 export default {
   components: { UserHeader, OtpBtn, PlainInput },
@@ -62,10 +64,69 @@ export default {
     return {
       phone: '',
       vecode: '',
-      stepNum: '1',
       newPwd: '',
       againPwd: ''
     }
+  },
+  methods: {
+    async getUserInfo () {
+      try {
+        let res = await userService.getInfo({
+          token: this.$store.getters.token
+        })
+        this.phone = res.data.info.info.phone
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async verifyCode () {
+      if (this.newPwd.length < 6 || this.againPwd.length < 6) {
+        Toast('密码长度不能小于6位')
+        return
+      } else if (this.newPwd !== this.againPwd) {
+        Toast('两次密码不一致')
+        return
+      }
+      Indicator.open()
+      try {
+        let res = await userService.verifyCode({
+          phone: this.phone,
+          code: this.vecode
+        })
+        console.log(res)
+        await this.changePwd()
+      } catch (error) {
+        userService.handleErr(error)
+      }
+      Indicator.close()
+    },
+    async changePwd () {
+      try {
+        let res = await userService.changePwd({
+          token: this.$store.getters.token,
+          pwd: this.newPwd,
+          pwd2: this.againPwd
+        })
+        console.log(res)
+        Toast(res.message)
+        this.$router.go(-1)
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    }
+  },
+  computed: {
+    maskPhone () {
+      if (!this.phone) {
+        return null
+      } else {
+        return this.phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
+      }
+    }
+  },
+  mounted: async function () {
+    await this.getUserInfo()
   }
 }
 </script>

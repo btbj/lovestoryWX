@@ -48,14 +48,16 @@
       </div>
     </div>
      <div class="option-btn">
-      <div class="btn">保存</div>
+      <div class="btn" @click="saveDetails">保存</div>
       <!-- <div class="btn">跳过此页</div> -->
     </div>
   </div>
 </template>
 
 <script>
+import userService from '@/services/userService'
 import PlainPicker from '@/components/PlainPicker'
+import { Toast } from 'mint-ui'
 
 export default {
   components: { PlainPicker },
@@ -66,6 +68,41 @@ export default {
       economicConcept: '',
       options: ['基本是月光族，及时享乐主义', '每月会存点钱，但是也要享受生活', '每月有固定存款，剩余自由分配', '为了未来努力攒钱，勤俭节约过日子']
     }
+  },
+  methods: {
+    async getDetails () {
+      try {
+        let res = await userService.getUserDetails({
+          token: this.$store.getters.token,
+          data: ['investList', 'debitList', 'economicConcept']
+        })
+        let {investList, debitList, economicConcept} = res.data.details
+        this.investList = investList || []
+        this.debitList = debitList || []
+        this.economicConcept = economicConcept[0]
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    },
+    async saveDetails () {
+      try {
+        let res = await userService.setUserDetails({
+          token: this.$store.getters.token,
+          data: {
+            investList: this.investList,
+            debitList: this.debitList,
+            economicConcept: this.economicConcept
+          }
+        })
+        console.log(res)
+        Toast(res.message)
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    }
+  },
+  mounted: async function () {
+    this.getDetails()
   }
 
 }
