@@ -1,7 +1,8 @@
 <template>
   <div class="user-info-container">
     <div class="user-info-box" v-if="userInfo">
-      <div class="user-avatar" :style="`background-image: url('${userInfo.info.head_image_url}');`"></div>
+      <user-avatar v-model="userInfo.info.head_image_url"></user-avatar>
+      <!-- <div class="user-avatar" :style="`background-image: url('${userInfo.info.head_image_url}');`"></div> -->
       <div class="user-nickname">{{userInfo.info.nickname}}</div>
       <div class="user-phone">{{userInfo.info.phone}}</div>
       <div class="user-address">{{userInfo.info.address}}</div>
@@ -16,8 +17,10 @@
 
 <script>
 import userService from '@/services/userService'
+import UserAvatar from './UserAvatar'
 
 export default {
+  components: { UserAvatar },
   data () {
     return {
       userInfo: null
@@ -35,7 +38,8 @@ export default {
         // }
         console.log('user info', res)
       } catch (error) {
-        console.log(error)
+        // console.log(error)
+        userService.handleErr(error)
       }
     }
   },

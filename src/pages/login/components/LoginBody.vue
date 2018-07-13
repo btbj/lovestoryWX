@@ -125,7 +125,7 @@ export default {
       this.password = ''
     },
     navTo (destName) {
-      this.$router.push({name: destName})
+      this.$router.replace({name: destName})
     },
     async doLogin () {
       try {
