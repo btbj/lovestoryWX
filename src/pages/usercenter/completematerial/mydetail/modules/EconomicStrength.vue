@@ -110,7 +110,7 @@ export default {
 
 <style lang="less" scoped>
 .economic-content-root{
-  width: 73%;
+  width: 80%;
   box-sizing: border-box;
   .economic-content {
     width: 100%;
@@ -121,7 +121,7 @@ export default {
     align-items: center;
     margin-top: 20px;
     margin-bottom: 40px;
-    padding: 5px;
+    padding: 5px 10px;
     .content-box {
       width: 100%;
       box-sizing: border-box;

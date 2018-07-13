@@ -139,14 +139,14 @@ export default {
 
 <style lang="less" scoped>
 .life-content-root{
-  width: 73%;
+  width: 80%;
   .life-content {
     width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
+    padding: 5px 10px;
     margin-top: 20px;
     margin-bottom: 40px;
     .form-sector{
