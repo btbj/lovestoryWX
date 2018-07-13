@@ -38,7 +38,7 @@ export default {
     align-items: center;
     justify-content: flex-start;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     .bottom-copyright {
       text-align: left;
       margin-right: 5px;

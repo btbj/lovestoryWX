@@ -5,7 +5,7 @@
     </user-header>
     <div class="intro-content-container">
       <div class="intro-info-box">
-        <plain-input type="textarea" class="intro-input" v-model="intro"></plain-input>
+        <plain-input type="textarea" class="intro-input" id="intro-textarea" v-model="intro"></plain-input>
         <div class="intro-remark">限20~1000字， 目前已输入{{letterCount}}, 您还可以输入{{1000-letterCount}}字</div>
       </div>
       <div class="option-btn">
@@ -126,5 +126,10 @@ export default {
       }
     }
   }
+}
+</style>
+<style lang="less">
+#intro-textarea .plain-input {
+  height: 100% !important;
 }
 </style>

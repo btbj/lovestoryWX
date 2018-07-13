@@ -224,14 +224,14 @@ export default {
 
 <style lang="less" scoped>
 .marriage-content-root{
-  width: 73%;
+  width: 80%;
   box-sizing: border-box;
   .marriage-content {
     width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 5px 10px;
     margin-top: 20px;
     margin-bottom: 40px;
     .form-sector{

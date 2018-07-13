@@ -234,7 +234,7 @@ export default {
 
 <style lang="less" scoped>
 .hobby-content-root{
-  width: 73%;
+  width: 80%;
   box-sizing: border-box;
   box-sizing: border-box;
   .hobby-content {
@@ -242,7 +242,7 @@ export default {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 5px 10px;
     margin-top: 20px;
     margin-bottom: 40px;
     .item-content-box {
