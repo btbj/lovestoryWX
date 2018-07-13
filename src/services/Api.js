@@ -2,7 +2,9 @@ import axios from 'axios'
 import { Toast } from 'mint-ui'
 import router from '@/router'
 
-const Host = 'http://php.gooduo.net/lovestory233/index.php/'
+const Host = 'http://www.lovestory33.com/server/index.php/'
+// const Host = 'http://php.gooduo.net/lovestory233/index.php/'
+
 const Http = axios.create({
   baseUrl: Host
 })

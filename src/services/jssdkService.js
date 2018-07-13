@@ -3,7 +3,8 @@ import { Toast } from 'mint-ui'
 
 export default {
   serviceURL: 'wechat/',
-  debug: true,
+  debug: false,
+  // debug: true,
 
   getSignature (URL) {
     return Api.post((this.serviceURL + 'get_jssdk_signature'), URL)
