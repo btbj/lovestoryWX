@@ -5,14 +5,14 @@ import App from './App'
 import router from './router'
 import { store } from './store/store'
 import '@/common/css/main.css'
-import MintUI from 'mint-ui'
-import 'mint-ui/lib/style.css'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+// import MintUI from 'mint-ui'
+// import 'mint-ui/lib/style.css'
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false
-Vue.use(MintUI)
-Vue.use(ElementUI)
+// Vue.use(MintUI)
+// Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({
