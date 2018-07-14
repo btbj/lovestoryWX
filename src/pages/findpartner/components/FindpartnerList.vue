@@ -51,7 +51,7 @@ export default {
       .pic-box {
         width: 40%;
         height: 120px;
-        border: 1px solid black;
+        // border: 1px solid black;
         box-sizing: border-box;
         margin-right: 3px;
         background-size: cover;

@@ -88,6 +88,8 @@ export default {
     }
   }
   .user-pic-box{
+    padding: 10px;
+    box-sizing: border-box;;
     height: 400px;
     width: 100%;
   }
