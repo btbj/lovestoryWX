@@ -1,39 +1,42 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/pages/login/Login'
-import Home from '@/pages/home/Home'
-import Aboutus from '@/pages/aboutus/Aboutus'
-import NewsInfo from '@/pages/newsinfo/NewsInfo'
-import ServiceIntro from '@/pages/serviceintro/ServiceIntro'
-import LoveStory from '@/pages/lovestory/LoveStory'
-import FindPartner from '@/pages/findpartner/FindPartner'
-import CustomService from '@/pages/customservice/CustomService'
-import Activities from '@/pages/activities/Activities'
-import ActivityDetail from '@/pages/activities/ActivityDetail'
-import UserCenter from '@/pages/usercenter/UserCenter'
-import DatingRecords from '@/pages/usercenter/datingrecords/DatingRecords'
-import FollowerPage from '@/pages/usercenter/datingrecords/modules/FollowerPage'
-import FollowingPage from '@/pages/usercenter/datingrecords/modules/FollowingPage'
-import HistoryPage from '@/pages/usercenter/datingrecords/modules/HistoryPage'
-import VisitorPage from '@/pages/usercenter/datingrecords/modules/VisitorPage'
-import CompleteMaterial from '@/pages/usercenter/completematerial/CompleteMaterial'
-import MyBasic from '@/pages/usercenter/completematerial/mybasic/MyBasic'
-import MyDetail from '@/pages/usercenter/completematerial/mydetail/MyDetail'
-import EconomicStrength from '@/pages/usercenter/completematerial/mydetail/modules/EconomicStrength'
-import LifeStyle from '@/pages/usercenter/completematerial/mydetail/modules/LifeStyle'
-import WorkStudy from '@/pages/usercenter/completematerial/mydetail/modules/WorkStudy'
-import Appearance from '@/pages/usercenter/completematerial/mydetail/modules/Appearance'
-import MarriageConcept from '@/pages/usercenter/completematerial/mydetail/modules/MarriageConcept'
-import Hobby from '@/pages/usercenter/completematerial/mydetail/modules/Hobby'
-import MyIntro from '@/pages/usercenter/completematerial/myintro/MyIntro'
-import MyOption from '@/pages/usercenter/completematerial/myoption/MyOption'
-import MyPics from '@/pages/usercenter/completematerial/mypics/MyPics'
 
-import MyAccount from '@/pages/usercenter/myaccount/MyAccount'
-import EditPassword from '@/pages/usercenter/myaccount/modules/EditPassword'
-import Register from '@/pages/register/Register'
-import ArticleDetail from '@/pages/articledetail/ArticleDetail'
-import UserInfo from '@/pages/userinfo/UserInfo'
+const Login = () => import(/* webpackChunkName: "Basic" */ '@/pages/login/Login')
+const Register = () => import(/* webpackChunkName: "Basic" */ '@/pages/register/Register')
+const Home = () => import(/* webpackChunkName: "Basic" */ '@/pages/home/Home')
+
+const Aboutus = () => import(/* webpackChunkName: "News" */ '@/pages/aboutus/Aboutus')
+const NewsInfo = () => import(/* webpackChunkName: "News" */ '@/pages/newsinfo/NewsInfo')
+const ServiceIntro = () => import(/* webpackChunkName: "News" */ '@/pages/serviceintro/ServiceIntro')
+const LoveStory = () => import(/* webpackChunkName: "News" */ '@/pages/lovestory/LoveStory')
+const CustomService = () => import(/* webpackChunkName: "News" */ '@/pages/customservice/CustomService')
+const Activities = () => import(/* webpackChunkName: "News" */ '@/pages/activities/Activities')
+const ActivityDetail = () => import(/* webpackChunkName: "News" */ '@/pages/activities/ActivityDetail')
+const ArticleDetail = () => import(/* webpackChunkName: "News" */ '@/pages/articledetail/ArticleDetail')
+
+const FindPartner = () => import(/* webpackChunkName: "Partner" */ '@/pages/findpartner/FindPartner')
+const UserInfo = () => import(/* webpackChunkName: "Partner" */ '@/pages/userinfo/UserInfo')
+
+const UserCenter = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/UserCenter')
+const DatingRecords = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/datingrecords/DatingRecords')
+const FollowerPage = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/datingrecords/modules/FollowerPage')
+const FollowingPage = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/datingrecords/modules/FollowingPage')
+const HistoryPage = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/datingrecords/modules/HistoryPage')
+const VisitorPage = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/datingrecords/modules/VisitorPage')
+const CompleteMaterial = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/CompleteMaterial')
+const MyBasic = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mybasic/MyBasic')
+const MyDetail = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mydetail/MyDetail')
+const EconomicStrength = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mydetail/modules/EconomicStrength')
+const LifeStyle = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mydetail/modules/LifeStyle')
+const WorkStudy = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mydetail/modules/WorkStudy')
+const Appearance = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mydetail/modules/Appearance')
+const MarriageConcept = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mydetail/modules/MarriageConcept')
+const Hobby = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mydetail/modules/Hobby')
+const MyIntro = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/myintro/MyIntro')
+const MyOption = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/myoption/MyOption')
+const MyPics = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mypics/MyPics')
+const MyAccount = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/myaccount/MyAccount')
+const EditPassword = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/myaccount/modules/EditPassword')
 
 Vue.use(Router)
 

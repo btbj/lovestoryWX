@@ -162,7 +162,7 @@ export default {
         border-bottom: 1px solid lightgrey;
         padding: 5px 0;
         .info-pic {
-          width: 120px;
+          width: 30%;
           height: 90px;
           box-sizing: border-box;
           margin-right: 10px;
@@ -172,17 +172,23 @@ export default {
           background-position: center;
         }
         .info-words {
-          padding: 6px 0;
+          padding: 5px 0;
           box-sizing: border-box;
-          flex: 1;
+          width: 69%;
           height: 100px;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           justify-content: space-around;
           .info-title {
+            width: 100%;
+            height: 18px;
+            box-sizing: border-box;
             font-size: 14px;
-            margin-bottom: 8px;
+            margin-bottom: 7px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
           .info-content {
             flex: 1;
