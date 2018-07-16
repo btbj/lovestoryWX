@@ -1,6 +1,9 @@
 <template>
   <div class="home-service-root">
-    <div class="service-bg-box" :style="`background-image: url('${processImg}')`"></div>
+    <!-- <div class="service-bg-box" :style="`background-image: url('${processImg}')`"></div> -->
+    <div class="service-bg-box">
+      <img :src="processImg" alt="">
+    </div>
   </div>
 </template>
 
@@ -21,13 +24,16 @@ export default {
   width: 100%;
   box-sizing: border-box;
   padding: 5px 0;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   .service-bg-box {
     width: 100%;
-    height: 250px;
+    // height: 250px;
     box-sizing: border-box;
     background-size: cover;
     background-position: center;
+    img{
+      width: 100%;
+    }
   }
 }
 
