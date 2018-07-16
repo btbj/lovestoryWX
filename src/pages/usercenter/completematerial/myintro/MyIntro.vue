@@ -5,20 +5,22 @@
     </user-header>
     <div class="intro-content-container">
       <div class="intro-info-box">
-        <plain-input type="textarea" class="intro-input" v-model="intro"></plain-input>
+        <plain-input type="textarea" class="intro-input" id="intro-textarea" v-model="intro"></plain-input>
         <div class="intro-remark">限20~1000字， 目前已输入{{letterCount}}, 您还可以输入{{1000-letterCount}}字</div>
       </div>
       <div class="option-btn">
-        <div class="btn">保存并继续</div>
-        <div class="btn">跳过此页</div>
+        <div class="btn" @click="submitInfo">保存并继续</div>
+        <div class="btn" @click="skipPage">跳过此页</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import userService from '@/services/userService'
 import UserHeader from '@/components/UserHeader'
 import PlainInput from '@/components/PlainInput'
+import { Toast } from 'mint-ui'
 
 export default {
   components: { UserHeader, PlainInput },
@@ -27,10 +29,45 @@ export default {
       intro: ''
     }
   },
+  methods: {
+    async getUserInfo () {
+      try {
+        let res = await userService.getInfo({
+          token: this.$store.getters.token
+        })
+        this.intro = res.data.info.info.monologue || ''
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async submitInfo () {
+      if (this.letterCount < 20) {
+        Toast('内心独白字数不小于20')
+        return
+      }
+      try {
+        let res = await userService.setMonologue({
+          token: this.$store.getters.token,
+          monologue: this.intro
+        })
+        Toast(res.message)
+        this.$router.replace({name: 'MyPics'})
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    },
+    skipPage () {
+      this.$router.replace({name: 'MyPics'})
+    }
+  },
   computed: {
     letterCount () {
       return this.intro.length
     }
+  },
+  mounted: async function () {
+    await this.getUserInfo()
   }
 }
 </script>
@@ -89,5 +126,10 @@ export default {
       }
     }
   }
+}
+</style>
+<style lang="less">
+#intro-textarea .plain-input {
+  height: 100% !important;
 }
 </style>

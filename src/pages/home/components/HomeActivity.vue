@@ -4,7 +4,7 @@
     <div class="activity-label-box">Activity</div>
     <div class="activity-intro-box">
       <div class="intro-info-box" style="margin-bottom: 20px">
-        <div class="title-info">{{activityInfo.title}}</div>
+        <div class="title-info" @click="CheckActivity(activityInfo.id)">{{activityInfo.title}}</div>
         <div class="item-info" v-show="activityInfo.time">
           活动时间：{{activityInfo.time}}
         </div>
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="activity-more-box">
-      <div class="more-btn">查看更多 >></div>
+      <div class="more-btn" @click="navTo('Activities')">查看更多 >></div>
     </div>
   </div>
 </template>
@@ -40,13 +40,19 @@ export default {
     }
   },
   methods: {
+    navTo (destRouteName) {
+      this.$router.push({name: destRouteName})
+    },
+    CheckActivity (id) {
+      this.$router.push({name: 'ActivityDetail', params: {'ActivityId': id}})
+    },
     async getList (page = 1) {
       try {
         let res = await activityService.activities({
           page,
           per_page: 1
         })
-        console.log('success', res)
+        // console.log('success', res)
         if (res.data.activities.length) {
           this.activityInfo = res.data.activities[0]
         }

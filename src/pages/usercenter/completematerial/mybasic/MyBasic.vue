@@ -112,33 +112,35 @@
         </el-form>
       </div>
       <div class="option-btn">
-        <div class="btn">保存并继续</div>
-        <div class="btn">跳过此页</div>
+        <div class="btn" @click="verifyForm">保存并继续</div>
+        <div class="btn" @click="skipPage">跳过此页</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import userService from '@/services/userService'
 import UserHeader from '@/components/UserHeader'
 import PlainInput from '@/components/PlainInput'
 import PlainPicker from '@/components/PlainPicker'
 import AreaPicker from '@/components/AreaPicker'
+import { Toast } from 'mint-ui'
 
 export default {
   components: { UserHeader, PlainInput, PlainPicker, AreaPicker },
   data () {
     return {
       userInfo: {
-        nickname: 'asdf',
-        sex: '男',
-        birthday: '2000-01-01',
-        zodiac: '马',
-        sign: '天蝎座',
-        height: '172',
-        age: '39',
-        education: '大专',
-        marrageStatus: '离异'
+        nickname: '',
+        sex: '',
+        birthday: '',
+        zodiac: '',
+        sign: '',
+        height: '',
+        age: '',
+        education: '',
+        marrageStatus: ''
       },
       contactInfo: {
         name: '',
@@ -173,6 +175,99 @@ export default {
         ]
       }
     }
+  },
+  methods: {
+    async getUserInfo () {
+      try {
+        let res = await userService.getInfo({
+          token: this.$store.getters.token
+        })
+        let {nickname, sex, year, month, day, zodiac, sign, height, age, education, marital_status: marrageStatus} = res.data.info.info
+        this.userInfo = {
+          nickname,
+          sex,
+          birthday: `${year}-${month}-${day}`,
+          height,
+          age,
+          education,
+          zodiac,
+          sign,
+          marrageStatus
+        }
+        let { children, blood_type: blood, province, city, household_province: hProvince, household_city: hCity, nation, month_pay: salary, live_status: house, car_status: car } = res.data.info.info
+        this.basicInfo = {
+          children,
+          blood,
+          address: [province, city],
+          household: [hProvince, hCity],
+          nation,
+          salary,
+          house,
+          car
+        }
+        let {name, id_card: idCard, email, wechat} = res.data.info.info
+        this.contactInfo = {
+          name,
+          idCard,
+          email,
+          wechat
+        }
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    singleFormVerify (formName) {
+      return new Promise((resolve, reject) => {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            resolve(valid)
+          } else {
+            reject(valid)
+          }
+        })
+      })
+    },
+    async verifyForm () {
+      try {
+        await this.singleFormVerify('infoForm')
+        await this.singleFormVerify('contactForm')
+        this.submitNewInfo()
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    },
+    async submitNewInfo () {
+      try {
+        let res = await userService.setExtraInfo({
+          token: this.$store.getters.token,
+          children: this.basicInfo.children,
+          province: this.basicInfo.address.length ? this.basicInfo.address[0] : '',
+          city: this.basicInfo.address.length ? this.basicInfo.address[1] : '',
+          household_province: this.basicInfo.household.length ? this.basicInfo.household[0] : '',
+          household_city: this.basicInfo.household.length ? this.basicInfo.household[1] : '',
+          blood_type: this.basicInfo.blood,
+          nation: this.basicInfo.nation,
+          month_pay: this.basicInfo.salary,
+          live_status: this.basicInfo.house,
+          car_status: this.basicInfo.car,
+          name: this.contactInfo.name,
+          id_card: this.contactInfo.idCard,
+          email: this.contactInfo.email,
+          wechat: this.contactInfo.wechat
+        })
+        Toast(res.message)
+        this.$router.replace({name: 'MyIntro'})
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    },
+    skipPage () {
+      this.$router.replace({name: 'MyIntro'})
+    }
+  },
+  mounted: async function () {
+    await this.getUserInfo()
   }
 
 }

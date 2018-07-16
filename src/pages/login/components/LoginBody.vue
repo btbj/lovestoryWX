@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container" style="background-image: url('https://dummyimage.com/82x140/333/3ff.jpg&text=pic');">
+  <div class="login-container" :style="`background-image: url('${loginbg}');`">
      <div class="login-box">
       <div class="login-content">
         <div class="login-header">
@@ -14,27 +14,26 @@
         </div>
         <div class="quick-login-body" v-if="type === 'quickLogin'">
           <div class="tel">
-            <plain-input class="tel-input" placeholder="手机号" v-model="tel" maxlength="11"></plain-input>
+            <plain-input class="tel-input" type="tel" placeholder="手机号" v-model="tel" maxlength="11"></plain-input>
             <!-- <input type="text" class="tel-input" placeholder="手机号" v-model="tel" maxlength="11" autocomplete="off"> -->
-            <div class="tel-vecode">发送验证码</div>
+            <!-- <div class="tel-vecode">发送验证码</div> -->
+            <otp-btn :phoneNumber="tel"></otp-btn>
             <!-- <otp-btn :phoneNumber="tel"></otp-btn> -->
           </div>
           <div class="vecode">
-            <plain-input class="vecode-input" placeholder="验证码" v-model="vecode" autocomplete="new-password"></plain-input>
+            <plain-input class="vecode-input" type="tel" placeholder="验证码" v-model="vecode" maxlength="4" autocomplete="new-password"></plain-input>
             <!-- <input type="text" maxlength="11" class="vecode-input" placeholder="验证码" v-model="vecode" autocomplete="off"> -->
           </div>
           <div class="login-set">
-            <div class="freedom">
-              <span class="mdi-check_box_outline_blank icon-size" v-if="!isFreedom"
-                    @click="isFreedom = !isFreedom"></span>
-              <span class="mdi-check_box icon-size" v-else
-                    @click="isFreedom = !isFreedom"></span>
+            <div class="freedom" @click="isFreedom = !isFreedom">
+              <span class="mdi-check_box_outline_blank icon-size" v-if="!isFreedom"></span>
+              <span class="mdi-check_box icon-size" v-else></span>
               <span style="font-size: 14px;">一个月免登</span>
             </div>
-            <div class="remark-words" @click="navTo('register')">还不是会员？立即注册</div>
+            <div class="remark-words" @click="navTo('Register')">还不是会员？立即注册</div>
           </div>
           <div class="login-btn-box">
-            <div class="login-btn">立即登录</div>
+            <div class="login-btn" @click="doLoginByPhone">立即登录</div>
           </div>
           <!-- <div class="other-login">
             <div class="divided-label">
@@ -56,7 +55,7 @@
         </div>
         <div class="password-login-body" v-else>
           <div class="tel">
-            <plain-input class="tel-input" placeholder="手机号" v-model="tel" maxlength="11"></plain-input>
+            <plain-input class="tel-input" type="tel" placeholder="手机号" v-model="tel" maxlength="11"></plain-input>
             <!-- <input type="text" maxlength="11" class="tel-input" placeholder="手机号" v-model="tel"> -->
           </div>
           <div class="password">
@@ -64,18 +63,16 @@
             <!-- <input type="password" class="password-input" placeholder="密码" v-model="password"> -->
           </div>
           <div class="login-set">
-            <div class="freedom">
-              <span class="mdi-check_box_outline_blank icon-size" v-if="!isFreedom"
-                    @click="isFreedom = !isFreedom"></span>
-              <span class="mdi-check_box icon-size" v-else
-                    @click="isFreedom = !isFreedom"></span>
+            <div class="freedom" @click="isFreedom = !isFreedom">
+              <span class="mdi-check_box_outline_blank icon-size" v-if="!isFreedom"></span>
+              <span class="mdi-check_box icon-size" v-else></span>
               <span style="font-size: 14px;">一个月免登</span>
             </div>
-            <div class="remark-words">忘记密码</div>
+            <div class="remark-words" @click="getType('quickLogin')">忘记密码</div>
           </div>
           <div class="login-btn-box">
-            <div class="login-btn">立即登录</div>
-            <div class="register-words" @click="navTo('register')">还不是会员？立即注册</div>
+            <div class="login-btn" @click="doLogin">立即登录</div>
+            <div class="register-words" @click="navTo('Register')">还不是会员？立即注册</div>
           </div>
           <!-- <div class="other-login">
             <div class="divided-label">
@@ -101,10 +98,14 @@
 </template>
 
 <script>
+import userService from '@/services/userService'
+import imageService from '@/services/imageService'
 import PlainInput from '@/components/PlainInput'
+import OtpBtn from '@/components/OtpBtn'
+import { Toast } from 'mint-ui'
 
 export default {
-  components: { PlainInput },
+  components: { PlainInput, OtpBtn },
   data () {
     return {
       unShow: 'none',
@@ -124,7 +125,52 @@ export default {
       this.password = ''
     },
     navTo (destName) {
-      this.$router.push({name: destName})
+      this.$router.replace({name: destName})
+    },
+    async doLogin () {
+      try {
+        let res = await userService.doLogin({
+          phone: this.tel,
+          password: this.password
+        })
+        Toast(res.message)
+        this.$store.commit('setToken', {
+          value: res.data.token,
+          expire: res.data.timeout
+        })
+        // console.log(this.$store.getters.token)
+        this.navTo('UserCenter')
+      } catch (error) {
+        console.log(error)
+        if (error.message) {
+          this.$message.error(error.message)
+        }
+      }
+    },
+    async doLoginByPhone () {
+      try {
+        let res = await userService.doLoginByPhone({
+          phone: this.tel,
+          code: this.vecode
+        })
+        this.$message({
+          message: res.message,
+          type: 'success'
+        })
+        this.$store.commit('setToken', {
+          value: res.data.token,
+          expire: res.data.timeout
+        })
+        // console.log(this.$store.getters.token)
+        this.navTo('UserCenter')
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  computed: {
+    loginbg () {
+      return imageService.loginbg
     }
   }
 }

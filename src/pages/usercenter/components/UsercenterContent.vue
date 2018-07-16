@@ -41,7 +41,7 @@ export default {
       return rightRoute
     },
     changeTab (type) {
-      this.$router.push({name: 'UserCenter-' + type})
+      this.$router.replace({name: 'UserCenter-' + type})
     }
   }
 }

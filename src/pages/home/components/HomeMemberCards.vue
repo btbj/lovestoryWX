@@ -13,12 +13,12 @@
           <div class="profile-item">年龄：{{member.age}}</div>
           <div class="profile-item">身高：{{member.height}}</div>
           <div class="profile-item">学历：{{member.education}}</div>
-          <div class="profile-btn">查看详情</div>
+          <div class="profile-btn" @click="CheckUser(member)">查看详情</div>
         </div>
       </div>
     </div>
     <div class="member-cards-more">
-      <div class="more-btn">查看更多 >></div>
+      <div class="more-btn" @click="navTo('FindPartner')">查看更多 >></div>
     </div>
   </div>
 </template>
@@ -60,8 +60,11 @@ export default {
     }
   },
   methods: {
-    checkUserDetail (user) {
-      this.$router.push({name: 'userinfo', params: {'id': user.id}})
+    CheckUser (user) {
+      this.$router.push({name: 'UserInfo', params: {'UserId': user.id}})
+    },
+    navTo (destRouteName) {
+      this.$router.push({name: destRouteName})
     },
     async getList (page = 1) {
       try {
@@ -69,7 +72,7 @@ export default {
           token: this.$store.getters.token,
           num: 4
         })
-        console.log('success', res)
+        // console.log('success', res)
         this.memberCardsList = res.data.users
         this.show = true
       } catch (error) {

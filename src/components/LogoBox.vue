@@ -2,8 +2,8 @@
   <div class="logo-box-root">
     <div class="logo-box" :style="`background-image: url('${siteLogo}');`"></div>
     <div class="slogan-box">
-      <div> 向会员提供，高品质，高效率 </div>
-      <div class="red-slogan-text"> 高端相亲交友服务平台 </div>
+      <div class="red-slogan-text">因为认真，所以安心！</div>
+      <div class="red-slogan-text">因为专业，所以贴心！</div>
     </div>
   </div>
 </template>
@@ -50,7 +50,7 @@ export default {
     font-size: 12px;
     border-left: 1px solid #ddd;
     .red-slogan-text{
-      margin-top: 5px;
+      margin: 2px;
       color: #F1356F;
       font-size: 15px;
     }

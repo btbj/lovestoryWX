@@ -1,7 +1,8 @@
 <template>
   <div class="home-story-root">
     <div class="story-title">
-      <div class="big-words-title">就在你身边，他们相爱了</div>
+      <div class="big-words-title">我无法定义幸福</div>
+      <div class="big-words-title">但是我知道有爱就一定会幸福</div>
       <div class="small-words-title">立即加入会员，缘分就在眼前</div>
     </div>
     <div class="first-row" v-if="storyList.length >= 1">
@@ -49,7 +50,7 @@ export default {
           page,
           per_page: 3
         })
-        console.log('success', res)
+        // console.log('success', res)
         this.storyList = res.data.articles
       } catch (error) {
         console.log(error)
@@ -91,7 +92,7 @@ export default {
     justify-content: center;
     margin-bottom: 20px;
     .big-words-title {
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 8px;
     }
     .small-words-title {

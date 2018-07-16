@@ -1,31 +1,38 @@
 <template>
   <div class="service-info-page-root">
-    <!-- <page-header>
-      <span slot="title">新闻资讯</span>
-      <span slot="first-item" @click="aaa('notification')">通知公告</span>
-      <span slot="second-item" @click="aaa('companynews')">公司新闻</span>
-      <span slot="third-item" @click="aaa('industrynews')">行业资讯</span>
-    </page-header> -->
-    <div class="service-info-content-box">
-      {{content}}
+    <page-header noMenu>
+      <span slot="title">服务介绍</span>
+    </page-header>
+    <div class="service-info-content-box" v-html="contentInfo">
+      <!-- {{content}} -->
     </div>
   </div>
 </template>
 
 <script>
+import siteService from '@/services/siteService'
 import PageHeader from '@/components/PageHeader'
 
 export default {
   components: { PageHeader },
   data () {
     return {
-      content: '卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡卡萨布兰卡'
+      contentInfo: ''
     }
   },
   methods: {
-    aaa (type) {
-      console.log(type)
+    async getSiteInfo (id) {
+      try {
+        let res = await siteService.info({id})
+        this.contentInfo = res.data.info.value
+        // console.log(res)
+      } catch (error) {
+        siteService.handleErr(error)
+      }
     }
+  },
+  mounted: async function () {
+    this.getSiteInfo(13)
   }
 
 }
@@ -42,6 +49,16 @@ export default {
     padding: 15px 10px;
     font-size: 14px;
     color: grey;
+  }
+}
+</style>
+
+<style lang="less">
+.service-info-page-root {
+  .service-info-content-box {
+    img{
+      max-width: 100%;
+    }
   }
 }
 </style>

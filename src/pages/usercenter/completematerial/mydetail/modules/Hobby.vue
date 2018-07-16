@@ -139,13 +139,16 @@
       </div>
     </div>
     <div class="option-btn">
-      <div class="btn">保存</div>
+      <div class="btn" @click="saveDetails">保存</div>
         <!-- <div class="btn">跳过此页</div> -->
     </div>
   </div>
 </template>
 
 <script>
+import userService from '@/services/userService'
+import { Toast } from 'mint-ui'
+
 export default {
   data () {
     return {
@@ -194,13 +197,44 @@ export default {
         }
       }
     }
+  },
+  methods: {
+    async getDetails () {
+      try {
+        let res = await userService.getUserDetails({
+          token: this.$store.getters.token,
+          data: Object.keys(this.checkBoxList)
+        })
+        console.log(res)
+        Object.keys(res.data.details).forEach(key => {
+          this.checkBoxList[key] = res.data.details[key]
+        })
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    },
+    async saveDetails () {
+      try {
+        let res = await userService.setUserDetails({
+          token: this.$store.getters.token,
+          data: this.checkBoxList
+        })
+        Toast(res.message)
+        console.log(res)
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    }
+  },
+  mounted: async function () {
+    this.getDetails()
   }
 }
 </script>
 
 <style lang="less" scoped>
 .hobby-content-root{
-  width: 73%;
+  width: 80%;
   box-sizing: border-box;
   box-sizing: border-box;
   .hobby-content {
@@ -208,7 +242,7 @@ export default {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 5px 10px;
     margin-top: 20px;
     margin-bottom: 40px;
     .item-content-box {

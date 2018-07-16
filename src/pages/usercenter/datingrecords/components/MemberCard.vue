@@ -1,8 +1,8 @@
 <template>
   <div class="member-card-container">
     <div class="member-pic-box-container">
-      <div class="member-pic-box" v-for="(member, index) in list"
-           :key="index">
+      <div class="member-pic-box" v-for="(member, index) in list" :key="index"
+        @click="CheckUser(member)">
         <div class="member-pic" :style="`background-image: url(${member.head_image_url})`">
         </div>
         <div class="word">
@@ -23,9 +23,9 @@ export default {
     }
   },
   methods: {
-    // checkUser (member) {
-    //   this.$router.push({name: 'userinfo', params: {'id': member.id}})
-    // }
+    CheckUser (user) {
+      this.$router.push({name: 'UserInfo', params: {'UserId': user.id}})
+    }
   }
 }
 </script>

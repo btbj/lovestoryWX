@@ -1,22 +1,61 @@
 <template>
   <div class="user-info-container">
-    <div class="user-info-box">
-      <div class="user-avatar" style="background-image: url('https://dummyimage.com/70x70/333/3ff.jpg&text=pic')"></div>
-      <div class="user-nickname">aa</div>
-      <div class="user-phone">15258257571</div>
-      <div class="user-address">浙江 宁波</div>
-      <div class="user-status">33岁，离异， 公务员</div>
+    <div class="user-info-box" v-if="userInfo">
+      <user-avatar v-model="userInfo.info.head_image_url"></user-avatar>
+      <!-- <div class="user-avatar" :style="`background-image: url('${userInfo.info.head_image_url}');`"></div> -->
+      <div class="user-nickname">{{userInfo.info.nickname}}</div>
+      <div class="user-phone">{{userInfo.info.phone}}</div>
+      <div class="user-address">{{userInfo.info.address}}</div>
+      <div class="user-status">{{UserAge}} {{userInfo.info.marital_status}}</div>
       <div class="user-fans-row">
-        <div class="item">粉丝  <span class="num fans">12</span></div>
-        <div class="item">关注  <span class="num follow">22</span></div>
+        <div class="item">粉丝  <span class="num fans">{{userInfo.info.fans_num}}</span></div>
+        <div class="item">关注  <span class="num follow">{{userInfo.info.attention_num}}</span></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import userService from '@/services/userService'
+import UserAvatar from './UserAvatar'
 
+export default {
+  components: { UserAvatar },
+  data () {
+    return {
+      userInfo: null
+    }
+  },
+  methods: {
+    async getUserInfo () {
+      try {
+        let res = await userService.getInfo({
+          token: this.$store.getters.token
+        })
+        this.userInfo = res.data.info
+        // if (this.userInfo.info.role_id === '3') {
+        //   this.$router.replace({name: 'prepay'})
+        // }
+        console.log('user info', res)
+      } catch (error) {
+        // console.log(error)
+        userService.handleErr(error)
+      }
+    }
+  },
+  computed: {
+    UserAge () {
+      let age = 0
+      if (this.userInfo) {
+        let currentYear = new Date().getFullYear()
+        age = currentYear - this.userInfo.info.year + 1
+      }
+      return age + '岁'
+    }
+  },
+  mounted: async function () {
+    this.getUserInfo()
+  }
 }
 </script>
 

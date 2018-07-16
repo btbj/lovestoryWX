@@ -50,7 +50,7 @@ export default {
           page,
           per_page: this.paginationData.size
         })
-        console.log('success', res)
+        // console.log('success', res)
         this.newsList = res.data.articles
         let {count: total, page: current, per_page: size} = res.data
         this.paginationData = {
@@ -80,11 +80,12 @@ export default {
 
 <style lang="less" scoped>
 .news-info-page-root {
+  flex: 1;
   width: 100%;
   box-sizing: border-box;
   .news-info-content-box {
     width: 100%;
-    min-height: 500px;
+    // min-height: 500px;
     box-sizing: border-box;
     padding: 15px 10px;
     font-size: 14px;

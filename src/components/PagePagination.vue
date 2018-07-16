@@ -39,7 +39,7 @@ export default {
     }
   },
   mounted: function () {
-    console.log(this.paginationData)
+    // console.log(this.paginationData)
   }
 }
 </script>

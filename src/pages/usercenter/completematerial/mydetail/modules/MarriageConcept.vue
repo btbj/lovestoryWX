@@ -82,17 +82,19 @@
       </el-form>
     </div>
     <div class="option-btn">
-      <div class="btn">保存</div>
+      <div class="btn" @click="saveDetails">保存</div>
       <!-- <div class="btn">跳过此页</div> -->
     </div>
   </div>
 </template>
 
 <script>
+import userService from '@/services/userService'
 import PlainPicker from '@/components/PlainPicker'
 import PlainInput from '@/components/PlainInput'
 import AreaPicker from '@/components/ProvinceCityPicker'
 import countryData from '../rawData/countries.js'
+import { Toast } from 'mint-ui'
 
 export default {
   components: { AreaPicker, PlainPicker, PlainInput },
@@ -156,6 +158,55 @@ export default {
       }
     }
   },
+  methods: {
+    async getDetails () {
+      try {
+        let keyArray = Object.keys(this.familyInfo).filter(item => { return item !== 'origin' })
+        let extraArray = ['originProvince', 'originCity', 'bigBrother', 'youngBrother', 'bigSister', 'youngSister']
+        let res = await userService.getUserDetails({
+          token: this.$store.getters.token,
+          data: [...keyArray, ...extraArray]
+        })
+        console.log(res)
+        Object.keys(res.data.details).forEach(key => {
+          if (extraArray.indexOf(key) === -1) {
+            this.familyInfo[key] = res.data.details[key][0]
+          }
+        })
+        let {originProvince, originCity} = res.data.details
+        this.familyInfo.origin = [originProvince[0], originCity[0]]
+        let {bigBrother, youngBrother, bigSister, youngSister} = res.data.details
+        this.relative.brother = {num: bigBrother[0], checked: Boolean(bigBrother[0])}
+        this.relative.youngerBro = {num: youngBrother[0], checked: Boolean(youngBrother[0])}
+        this.relative.sister = {num: bigSister[0], checked: Boolean(bigSister[0])}
+        this.relative.youngerSis = {num: youngSister[0], checked: Boolean(youngSister[0])}
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    },
+    async saveDetails () {
+      try {
+        let submitData = {
+          originProvince: this.familyInfo.origin[0],
+          originCity: this.familyInfo.origin[1],
+          bigBrother: this.relative.brother.checked ? this.relative.brother.num : '',
+          youngBrother: this.relative.youngerBro.checked ? this.relative.youngerBro.num : '',
+          bigSister: this.relative.sister.checked ? this.relative.sister.num : '',
+          youngSister: this.relative.youngerSis.checked ? this.relative.youngerSis.num : '',
+          ...this.familyInfo
+        }
+        delete submitData.origin
+        console.log(submitData, this.familyInfo)
+        let res = await userService.setUserDetails({
+          token: this.$store.getters.token,
+          data: submitData
+        })
+        Toast(res.message)
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    }
+  },
   computed: {
     getNum () {
       let numArray = []
@@ -164,20 +215,23 @@ export default {
       }
       return numArray
     }
+  },
+  mounted: async function () {
+    this.getDetails()
   }
 }
 </script>
 
 <style lang="less" scoped>
 .marriage-content-root{
-  width: 73%;
+  width: 80%;
   box-sizing: border-box;
   .marriage-content {
     width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 5px 10px;
     margin-top: 20px;
     margin-bottom: 40px;
     .form-sector{

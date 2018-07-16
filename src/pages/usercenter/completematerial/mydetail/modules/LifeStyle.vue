@@ -50,14 +50,16 @@
       </el-form>
     </div>
      <div class="option-btn">
-      <div class="btn">保存</div>
+      <div class="btn" @click="saveDetails">保存</div>
       <!-- <div class="btn">跳过此页</div> -->
     </div>
   </div>
 </template>
 
 <script>
+import userService from '@/services/userService'
 import PlainPicker from '@/components/PlainPicker'
+import { Toast } from 'mint-ui'
 
 export default {
   components: { PlainPicker },
@@ -100,21 +102,51 @@ export default {
           '喜欢宠物，家里有养猫咪', '喜欢宠物，我养的宠物很特别，好奇的话，来信问问我吧']
       }
     }
+  },
+  methods: {
+    async getDetails () {
+      try {
+        let res = await userService.getUserDetails({
+          token: this.$store.getters.token,
+          data: Object.keys(this.styleInfo)
+        })
+        console.log(res)
+        Object.keys(res.data.details).forEach(key => {
+          this.styleInfo[key] = res.data.details[key][0]
+        })
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    },
+    async saveDetails () {
+      try {
+        let res = await userService.setUserDetails({
+          token: this.$store.getters.token,
+          data: this.styleInfo
+        })
+        console.log(res)
+        Toast(res.message)
+      } catch (error) {
+        userService.handleErr(error)
+      }
+    }
+  },
+  mounted: async function () {
+    this.getDetails()
   }
-
 }
 </script>
 
 <style lang="less" scoped>
 .life-content-root{
-  width: 73%;
+  width: 80%;
   .life-content {
     width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
+    padding: 5px 10px;
     margin-top: 20px;
     margin-bottom: 40px;
     .form-sector{

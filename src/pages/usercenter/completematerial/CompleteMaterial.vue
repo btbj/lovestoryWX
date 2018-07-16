@@ -1,7 +1,7 @@
 <template>
   <div class="complete-material-root">
     <div class="material-item-box" @click="navTo('MyBasic')">
-      <div class="item-pic" style="background-image: url('https://dummyimage.com/30x30/333/3ff.jpg&text=pic')"></div>
+      <div class="item-pic"><img :src="Icons.Info" alt=""></div>
       <div class="item-content">
         <div class="item-label">基本资料</div>
         <div class="item-icon">
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="material-item-box" @click="navTo('MyIntro')">
-      <div class="item-pic" style="background-image: url('https://dummyimage.com/30x30/333/3ff.jpg&text=pic')"></div>
+      <div class="item-pic"><img :src="Icons.MonoLogue" alt=""></div>
       <div class="item-content">
         <div class="item-label">内心独白</div>
         <div class="item-icon">
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="material-item-box" @click="navTo('MyPics')">
-      <div class="item-pic" style="background-image: url('https://dummyimage.com/30x30/333/3ff.jpg&text=pic')"></div>
+      <div class="item-pic"><img :src="Icons.Pics" alt=""></div>
       <div class="item-content">
         <div class="item-label">我的相册</div>
         <div class="item-icon">
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="material-item-box" @click="navTo('MyDetail')">
-      <div class="item-pic" style="background-image: url('https://dummyimage.com/30x30/333/3ff.jpg&text=pic')"></div>
+      <div class="item-pic"><img :src="Icons.Detail" alt=""></div>
       <div class="item-content">
         <div class="item-label">详细资料</div>
         <div class="item-icon">
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="material-item-box" @click="navTo('MyOption')">
-      <div class="item-pic" style="background-image: url('https://dummyimage.com/30x30/333/3ff.jpg&text=pic')"></div>
+      <div class="item-pic"><img :src="Icons.Option" alt=""></div>
       <div class="item-content">
         <div class="item-label">择偶条件</div>
         <div class="item-icon">
@@ -49,7 +49,24 @@
 </template>
 
 <script>
+import IconInfo from '../icons/userInfo.png'
+import IconMonologue from '../icons/userMonologue.png'
+import IconPics from '../icons/userPics.png'
+import IconDetail from '../icons/userDetail.png'
+import IconOption from '../icons/userOption.png'
+
 export default {
+  data () {
+    return {
+      Icons: {
+        Info: IconInfo,
+        MonoLogue: IconMonologue,
+        Pics: IconPics,
+        Detail: IconDetail,
+        Option: IconOption
+      }
+    }
+  },
   methods: {
     navTo (destName) {
       this.$router.push({name: destName})
@@ -85,12 +102,15 @@ export default {
     .item-pic {
       width: 30px;
       height: 30px;
-      border: 1px solid black;
+      // border: 1px solid black;
       box-sizing: border-box;
       margin-right: 20px;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
+      // background-repeat: no-repeat;
+      // background-position: center center;
+      // background-size: cover;
+      img{
+        width: 100%;
+      }
     }
     .item-content {
       flex: 1;
