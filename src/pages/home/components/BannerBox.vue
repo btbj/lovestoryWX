@@ -21,14 +21,14 @@ export default {
     async getSiteInfo (id) {
       try {
         let res = await siteService.info({id})
-        this.bannerList = res.data.info
+        this.bannerList = res.data.info.images
       } catch (error) {
         siteService.handleErr(error)
       }
     }
   },
   mounted: async function () {
-    this.getSiteInfo([21, 22])
+    this.getSiteInfo(26)
   }
 }
 </script>

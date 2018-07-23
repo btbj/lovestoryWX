@@ -38,6 +38,7 @@ export default {
       }, 1000)
       setTimeout(() => {
         clearInterval(reduceInterval)
+        this.restSeconds = 0
       }, seconds * 1000)
     }
   },
