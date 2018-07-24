@@ -1,11 +1,11 @@
 <template>
   <div class="basic-bottom-root">
     <div class="bottom-box">
-      <div class="bottom-copyright">
+      <!-- <div class="bottom-copyright">
         版权所有© 2018
-      </div>
+      </div> -->
       <div class="site-register-info">
-        相亲相爱婚介网
+        "爱情故事"婚恋服务中心
       </div>
       <div class="bottom-technical-support">
         技术支持：谷多网络

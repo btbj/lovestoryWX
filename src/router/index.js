@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// import ExContactUs from '@/pages/extrapages/ContactUs'
+
 const Login = () => import(/* webpackChunkName: "Basic" */ '@/pages/login/Login')
 const Register = () => import(/* webpackChunkName: "Basic" */ '@/pages/register/Register')
 const Home = () => import(/* webpackChunkName: "Basic" */ '@/pages/home/Home')
@@ -37,6 +39,9 @@ const MyOption = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter
 const MyPics = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/completematerial/mypics/MyPics')
 const MyAccount = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/myaccount/MyAccount')
 const EditPassword = () => import(/* webpackChunkName: "User" */ '@/pages/usercenter/myaccount/modules/EditPassword')
+
+const ExContactUs = () => import(/* webpackChunkName: "Extra" */ '@/pages/extrapages/ContactUs')
+const ExMapLocations = () => import(/* webpackChunkName: "Extra" */ '@/pages/extrapages/MapLocations')
 
 Vue.use(Router)
 
@@ -212,6 +217,16 @@ export default new Router({
       path: '/user/:UserId',
       name: 'UserInfo',
       component: UserInfo
+    },
+    {
+      path: '/extrapage/contactus',
+      name: 'ExContactUs',
+      component: ExContactUs
+    },
+    {
+      path: '/extrapage/maplocations',
+      name: 'ExMapLocations',
+      component: ExMapLocations
     }
   ]
 })
